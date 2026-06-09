@@ -3,407 +3,457 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leslie Mu (母永林) // CYBER_PORTFOLIO</title>
+    <title>Leslie Mu // Portfolio</title>
     <style>
-        /* Cyberpunk Theme Variables */
+        /* 高级简约主题变量 */
         :root {
-            --bg-color: #050505;
-            --surface-color: #111111;
-            --primary-cyan: #00f0ff;
-            --primary-pink: #ff003c;
-            --primary-yellow: #fcee0a;
-            --text-main: #e0e0e0;
-            --text-muted: #888888;
-            --font-mono: 'Courier New', Courier, monospace;
-            --font-sans: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --bg-primary: #ffffff;
+            --bg-secondary: #fbfbfd;
+            --text-primary: #1d1d1f;
+            --text-secondary: #86868b;
+            --accent-color: #0066cc;
+            --border-color: #e5e5ea;
+            --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
-            font-family: var(--font-sans);
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            margin: 0;
-            padding: 0;
-            background-image: 
-                linear-gradient(rgba(0, 240, 255, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(0, 240, 255, 0.03) 1px, transparent 1px);
-            background-size: 30px 30px;
+            font-family: var(--font-family);
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
 
-        /* Glitch Header */
-        header {
-            padding: 80px 20px;
-            text-align: center;
-            border-bottom: 2px solid var(--primary-pink);
-            background: linear-gradient(180deg, rgba(255,0,60,0.1) 0%, rgba(0,0,0,0) 100%);
-            position: relative;
+        /* 布局与容器 */
+        .container {
+            max-width: 1040px;
+            margin: 0 auto;
+            padding: 0 20px;
         }
 
-        header::after {
-            content: "SYS.ONLINE";
-            position: absolute;
-            top: 10px;
-            right: 20px;
-            font-family: var(--font-mono);
-            color: var(--primary-yellow);
-            font-size: 0.8rem;
-            animation: blink 2s infinite;
+        section {
+            padding: 100px 0;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        h1 {
-            font-family: var(--font-mono);
-            font-size: 3rem;
-            color: var(--primary-cyan);
-            margin: 0;
+        section:last-child {
+            border-bottom: none;
+        }
+
+        /* 滚动动画初始状态 */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* 标题排版 */
+        .section-title {
+            font-size: 2rem;
+            font-weight: 600;
+            margin-bottom: 10px;
+            letter-spacing: -0.5px;
+        }
+
+        .section-subtitle {
+            font-size: 1rem;
+            color: var(--text-secondary);
+            margin-bottom: 50px;
+            font-weight: 400;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            text-shadow: 2px 2px 0px var(--primary-pink);
+            letter-spacing: 1px;
+        }
+
+        /* 首屏简介 (Hero Section) */
+        .hero {
+            padding: 15vh 0 10vh;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 700;
+            letter-spacing: -1px;
+            margin-bottom: 10px;
+        }
+
+        .hero .en-name {
+            font-size: 1.5rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+            margin-bottom: 30px;
         }
 
         .slogan {
-            font-family: var(--font-mono);
-            color: var(--primary-yellow);
-            margin: 15px 0 30px;
-            font-size: 1.1rem;
+            font-size: 1.25rem;
+            color: var(--text-primary);
+            max-width: 600px;
+            margin: 0 auto 40px;
+            line-height: 1.8;
         }
 
-        .info-grid {
+        .slogan span {
+            color: var(--text-secondary);
+            font-size: 1rem;
+            display: block;
+            margin-top: 5px;
+        }
+
+        .contact-info {
             display: flex;
-            flex-wrap: wrap;
             justify-content: center;
-            gap: 20px;
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
-            color: var(--primary-cyan);
+            gap: 30px;
+            flex-wrap: wrap;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
         }
 
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        /* Section Titles */
-        h2 {
-            font-family: var(--font-mono);
-            color: var(--primary-yellow);
-            border-left: 5px solid var(--primary-pink);
-            padding-left: 15px;
-            text-transform: uppercase;
-            font-size: 1.8rem;
-            margin-top: 60px;
-            margin-bottom: 30px;
-            background: linear-gradient(90deg, rgba(255,0,60,0.15) 0%, transparent 100%);
-        }
-
-        /* Cyber Cards */
-        .card {
-            background-color: var(--surface-color);
-            border: 1px solid #333;
-            padding: 25px;
-            margin-bottom: 25px;
-            position: relative;
-            transition: all 0.3s ease;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 10px;
-            height: 10px;
-            border-top: 2px solid var(--primary-cyan);
-            border-left: 2px solid var(--primary-cyan);
-        }
-
-        .card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 10px;
-            height: 10px;
-            border-bottom: 2px solid var(--primary-cyan);
-            border-right: 2px solid var(--primary-cyan);
-        }
-
-        .card:hover {
-            border-color: var(--primary-cyan);
-            box-shadow: 0 0 15px rgba(0, 240, 255, 0.1);
-        }
-
-        .card h3 {
-            color: var(--primary-cyan);
-            margin-top: 0;
-            font-size: 1.3rem;
-            font-family: var(--font-mono);
-        }
-
-        .meta {
-            color: var(--text-muted);
-            font-family: var(--font-mono);
-            font-size: 0.85rem;
-            margin-bottom: 15px;
-            border-bottom: 1px dashed #333;
-            padding-bottom: 10px;
-        }
-
-        /* Links */
-        a {
-            color: var(--primary-pink);
-            text-decoration: none;
-            transition: color 0.2s;
-            font-family: var(--font-mono);
-        }
-
-        a:hover {
-            color: var(--primary-cyan);
-            text-shadow: 0 0 5px var(--primary-cyan);
-        }
-
-        .links-hub {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #333;
-        }
-
-        .links-hub a {
-            display: inline-block;
-            margin-right: 15px;
-            padding: 5px 10px;
-            border: 1px solid var(--primary-pink);
-            background: rgba(255,0,60,0.05);
-            font-size: 0.85rem;
-        }
-
-        .links-hub a:hover {
-            background: var(--primary-pink);
-            color: #000;
-        }
-
-        /* Photo Gallery */
+        /* 视觉作品画廊 (高级网格+悬浮交互) */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .gallery-item {
+            border-radius: 12px;
+            overflow: hidden;
+            background: var(--bg-secondary);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .gallery-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+        }
+
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .gallery-item:hover img {
+            transform: scale(1.05);
+        }
+
+        /* 履历与经历卡片 */
+        .card-list {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+        }
+
+        .experience-card {
+            display: grid;
+            grid-template-columns: 1fr 3fr;
             gap: 20px;
         }
 
-        .gallery img {
-            width: 100%;
-            height: auto;
-            border: 1px solid #333;
-            filter: grayscale(20%) contrast(120%);
-            transition: all 0.3s;
+        @media (max-width: 768px) {
+            .experience-card {
+                grid-template-columns: 1fr;
+            }
         }
 
-        .gallery img:hover {
-            filter: grayscale(0%) contrast(100%);
-            border-color: var(--primary-cyan);
-            box-shadow: 0 0 10px var(--primary-cyan);
+        .exp-time {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            font-weight: 500;
         }
 
-        /* Cyber Table for Data Analysis */
-        .cyber-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-            font-family: var(--font-mono);
-            font-size: 0.9rem;
+        .exp-time span {
+            display: block;
+            font-size: 0.85rem;
+            margin-top: 4px;
         }
 
-        .cyber-table th, .cyber-table td {
-            border: 1px solid #333;
-            padding: 12px;
-            text-align: left;
+        .exp-content h3 {
+            font-size: 1.3rem;
+            margin-bottom: 5px;
         }
 
-        .cyber-table th {
-            background-color: rgba(0, 240, 255, 0.1);
-            color: var(--primary-cyan);
-            text-transform: uppercase;
-        }
-
-        .cyber-table tr:hover {
-            background-color: rgba(252, 238, 10, 0.05);
-        }
-
-        .cyber-table .highlight {
-            color: var(--primary-yellow);
-            font-weight: bold;
-        }
-
-        .terminal-text {
-            color: var(--primary-cyan);
-            font-family: var(--font-mono);
-            background: rgba(0,0,0,0.5);
-            padding: 10px;
-            border-left: 3px solid var(--primary-cyan);
+        .exp-content .sub-title {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
             margin-bottom: 15px;
         }
 
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            border-top: 1px solid #333;
-            font-family: var(--font-mono);
-            color: var(--text-muted);
-            font-size: 0.8rem;
+        .exp-content p {
+            margin-bottom: 10px;
+            color: #333;
         }
 
-        @keyframes blink {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0; }
+        .exp-content p.en-desc {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            margin-bottom: 20px;
+        }
+
+        /* 链接交互设计 */
+        .links-group a {
+            display: inline-flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--accent-color);
+            text-decoration: none;
+            margin-right: 20px;
+            margin-bottom: 10px;
+            padding: 6px 12px;
+            background: rgba(0, 102, 204, 0.05);
+            border-radius: 6px;
+            transition: background 0.2s, transform 0.2s;
+        }
+
+        .links-group a:hover {
+            background: rgba(0, 102, 204, 0.1);
+            transform: translateX(3px);
+        }
+
+        /* 数据表格极简风 */
+        .data-table-wrapper {
+            overflow-x: auto;
+            margin-top: 30px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            text-align: left;
+            font-size: 0.95rem;
+        }
+
+        th, td {
+            padding: 16px 20px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background-color: var(--bg-secondary);
+            font-weight: 500;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+        }
+
+        tr:last-child td {
+            border-bottom: none;
+        }
+
+        .highlight-data {
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 50px 20px;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            background-color: var(--bg-secondary);
         }
     </style>
 </head>
 <body>
 
-    <!-- Hero Section -->
-    <header>
-        <h1>Leslie Mu // 母永林</h1>
-        <div class="slogan">> AUDIOVISUAL_CREATOR | DATA_RESEARCHER</div>
-        <div class="info-grid">
-            <div>LOC: GUANGZHOU / GUIYANG</div>
-            <div>COM: 15339518327</div>
-            <div>NET: urxanxlin@gmail.com</div>
-        </div>
-    </header>
-
     <div class="container">
-
-        <!-- Visual Portfolio Section (Moved to the top) -->
-        <section id="portfolio">
-            <h2>> 01_Visual_Archives</h2>
-            <div class="gallery">
-                <img src="1.jpg" alt="Industrial Contrast">
-                <img src="2.jpg" alt="Night Sphere">
-                <img src="3.jpg" alt="Exhibition Space">
-            </div>
-        </section>
         
-        <!-- Education Section -->
-        <section id="education">
-            <h2>> 02_Education_Logs</h2>
-            <div class="card">
-                <h3>South China University of Technology // 华南理工大学</h3>
-                <div class="meta">SYS.DATE: 2023.09 - PRESENT | DEPT: Audiovisual Communication</div>
-                <p>Undergraduate Student (GPA: 3.86/4.0 | TOP_RANK: 15%)</p>
+        <section class="hero fade-in">
+            <h1>母永林</h1>
+            <div class="en-name">Leslie Mu</div>
+            <div class="slogan">
+                视听创作者 / 数据分析研究者
+                <span>Audiovisual Creator & Data Analysis Researcher</span>
             </div>
-            <div class="card">
-                <h3>Hanyang University // 韩国汉阳大学</h3>
-                <div class="meta">SYS.DATE: 2024.09 - 2024.12 | Exchange Program</div>
-                <p>Tuition-waived Exchange Semester (English-taught | Cross-cultural Media Strategy)</p>
+            <div class="contact-info">
+                <span>📍 广州 • 贵阳 / Guangzhou • Guiyang</span>
+                <span>📞 153 3951 8327</span>
+                <span>📧 urxanxlin@gmail.com</span>
             </div>
         </section>
 
-        <!-- Experience & Works Section -->
-        <section id="experience">
-            <h2>> 03_Experience_&_Assets</h2>
+       <section id="portfolio" class="fade-in">
+            <h2 class="section-title">视觉档案</h2>
+            <div class="section-subtitle">Visual Archives</div>
             
-            <div class="card">
-                <h3>VCT CN Valorant Kickoff | China Youth Network Media Reporter</h3>
-                <div class="meta">TIMESTAMP: 2026.02</div>
-                <p>Led on-site audiovisual production, match recaps, and conducted post-match interviews with top esports teams (EDG, AG).</p>
-                <div class="links-hub">
-                    <a href="https://s.cyol.com/articles/2026-02/11/content_jp722eH2.html?gid=3DlgPxr2" target="_blank">[ACCESS_REPORT_01]</a>
-                    <a href="https://s.cyol.com/articles/2026-02/09/content_5xBGvBSM.html" target="_blank">[ACCESS_REPORT_02]</a>
+            <div class="gallery">
+                <div class="gallery-item">
+                    <img src="1.JPG" alt="Photography 1">
                 </div>
-            </div>
-
-            <div class="card">
-                <h3>Guizhou Radio and Television Station | New Media Operation Intern</h3>
-                <div class="meta">TIMESTAMP: 2024 WINTER</div>
-                <p>Directed the short video series "Coffee Arrival", managing scripting, filming, and editing. Achieved >10k views across matrix platforms.</p>
-                <div class="links-hub">
-                    <a href="https://www.gzstv.com/a/e0a509bf7e614c6099edaf106f97981c" target="_blank">[OFFICIAL_LOG]</a>
-                    <a href="https://v.douyin.com/d_qWWonEvPY/" target="_blank">[VIDEO_ASSET_1]</a>
-                    <a href="https://v.douyin.com/569kA5_e7m4/" target="_blank">[VIDEO_ASSET_2]</a>
-                    <a href="https://v.douyin.com/3t0U2AM062w/" target="_blank">[VIDEO_ASSET_3]</a>
+                <div class="gallery-item">
+                    <img src="2.JPG" alt="Photography 2">
                 </div>
-            </div>
-
-            <div class="card">
-                <h3>International Mountain Tourism Alliance (IMTA) | Intern</h3>
-                <div class="meta">TIMESTAMP: 2025 SUMMER</div>
-                <p>Assisted in translating and proofreading the English strategic tourism report for the Asia-Pacific region utilizing AI toolkits.</p>
+                <div class="gallery-item">
+                    <img src="3.JPG" alt="Photography 3">
+                </div>
             </div>
         </section>
 
-        <!-- Research Section -->
-        <section id="research">
-            <h2>> 04_Data_Analysis_&_Research</h2>
-            <div class="card">
-                <h3>Research on the Salvage-oriented Transmedia Feedback of Spin-off Anime on Games: A Case Study of Cyberpunk: Edgerunners</h3>
-                <div class="meta">FILE_TYPE: ACADEMIC_PAPER | METHOD: QUANTITATIVE_ANALYSIS</div>
-                
-                <p class="terminal-text">
-                    > INIT_DATA_SCRAPE...<br>
-                    > DATASET: 54,787 Steam Reviews extracted via Kaggle.<br>
-                    > METHODOLOGY: Keyword rule matching & Chi-square (x²) testing applied to evaluate significance of shifts in player sentiment and focus.<br>
-                    > STATUS: SUCCESS. Concept "Salvage-oriented Transmedia Feedback" defined.
-                </p>
-
-                <p><strong>Table 3.2: Changes in Evaluation Focus Categories Before and After Anime Broadcast</strong></p>
-                
-                <!-- Extracted Chi-square Data Table -->
-                <div style="overflow-x:auto;">
-                    <table class="cyber-table">
-                        <thead>
-                            <tr>
-                                <th>Evaluation Focus (评价焦点)</th>
-                                <th>Pre-Anime (%)</th>
-                                <th>Post-Anime (%)</th>
-                                <th>Change</th>
-                                <th>x² Value</th>
-                                <th>p-Value</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Product Quality (产品质量)</td>
-                                <td>33.2%</td>
-                                <td>27.6%</td>
-                                <td class="highlight">-5.6%</td>
-                                <td>137.24</td>
-                                <td><0.001</td>
-                            </tr>
-                            <tr>
-                                <td>Anime Character (动画角色)</td>
-                                <td>7.4%</td>
-                                <td>12.6%</td>
-                                <td class="highlight">+5.2%</td>
-                                <td>237.10</td>
-                                <td><0.001</td>
-                            </tr>
-                            <tr>
-                                <td>Worldview & Narrative (世界观与叙事)</td>
-                                <td>30.6%</td>
-                                <td>24.6%</td>
-                                <td class="highlight">-6.0%</td>
-                                <td>163.28</td>
-                                <td><0.001</td>
-                            </tr>
-                            <tr>
-                                <td>Causal Attribution to Anime (动画直接因果)</td>
-                                <td>0.1%</td>
-                                <td>1.5%</td>
-                                <td class="highlight">+1.4%</td>
-                                <td>157.67</td>
-                                <td><0.001</td>
-                            </tr>
-                        </tbody>
-                    </table>
+        <section id="experience" class="fade-in">
+            <h2 class="section-title">教育与实践经历</h2>
+            <div class="section-subtitle">Education & Experience</div>
+            
+            <div class="card-list">
+                <div class="experience-card">
+                    <div class="exp-time">
+                        2023.09 - 至今
+                        <span>Present</span>
+                    </div>
+                    <div class="exp-content">
+                        <h3>华南理工大学 (SCUT)</h3>
+                        <div class="sub-title">视听传播 本科在读 / B.A. in Audiovisual Communication</div>
+                        <p>专业排名前15% (GPA: 3.86/4.0)。</p>
+                    </div>
                 </div>
+
+                <div class="experience-card">
+                    <div class="exp-time">
+                        2024.09 - 12
+                        <span>Fall 2024</span>
+                    </div>
+                    <div class="exp-content">
+                        <h3>韩国汉阳大学 (Hanyang University)</h3>
+                        <div class="sub-title">学费互免交换生 / Exchange Student</div>
+                        <p>主导跨文化媒体战略企划项目（全英语授课）。</p>
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="exp-time">
+                        2026.02
+                        <span>Feb 2026</span>
+                    </div>
+                    <div class="exp-content">
+                        <h3>中国青年网校媒记者</h3>
+                        <div class="sub-title">VCT CN 无畏契约启点赛 / VCT CN Valorant Kickoff</div>
+                        <p>独立负责赛事现场视听内容产出，主导 EDG、AG 等头部战队赛后深度专访。</p>
+                        <p class="en-desc">Led on-site audiovisual production and post-match interviews with top esports teams.</p>
+                        <div class="links-group">
+                            <a href="https://s.cyol.com/articles/2026-02/11/content_jp722eH2.html?gid=3DlgPxr2" target="_blank">报道专访 01 ↗</a>
+                            <a href="https://s.cyol.com/articles/2026-02/09/content_5xBGvBSM.html" target="_blank">报道专访 02 ↗</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="experience-card">
+                    <div class="exp-time">
+                        2024 寒假
+                        <span>Winter 2024</span>
+                    </div>
+                    <div class="exp-content">
+                        <h3>贵州省广播电视台</h3>
+                        <div class="sub-title">新媒体运营实习生 / New Media Operation Intern</div>
+                        <p>主导策划《咖啡驾到》短视频集，独立完成脚本、拍摄与后期包装，全矩阵浏览量破万。</p>
+                        <p class="en-desc">Directed the short video series "Coffee Arrival", achieving >10k views across platforms.</p>
+                        <div class="links-group">
+                            <a href="https://www.gzstv.com/a/e0a509bf7e614c6099edaf106f97981c" target="_blank">官网报道 ↗</a>
+                            <a href="https://v.douyin.com/d_qWWonEvPY/" target="_blank">视频系列 01 ↗</a>
+                            <a href="https://v.douyin.com/569kA5_e7m4/" target="_blank">视频系列 02 ↗</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="research" class="fade-in">
+            <h2 class="section-title">学术研究与数据分析</h2>
+            <div class="section-subtitle">Academic Research & Data Analysis</div>
+            
+            <div class="exp-content" style="margin-bottom: 30px;">
+                <h3>《游戏衍生动画对游戏本体的拯救型跨媒介反哺研究》</h3>
+                <div class="sub-title">核心方法：Kaggle 评论挖掘 / 关键词匹配 / 卡方检验 (Chi-square test)</div>
+                <p>提取并清洗 54,787 条 Steam 玩家数据，验证衍生动画（《赛博朋克:边缘行者》）如何在不进行技术修复的前提下重塑游戏核心口碑。</p>
+                <p class="en-desc">Analyzed 54,787 Steam reviews to explore how a spin-off anime can reconstruct player emotional connection and reverse product reputation without software patches.</p>
+            </div>
+
+            <div class="data-table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>评价焦点 / Evaluation Focus</th>
+                            <th>动画播出前 / Pre-Anime</th>
+                            <th>动画播出后 / Post-Anime</th>
+                            <th>变化幅度 / Change</th>
+                            <th>x² 检验值</th>
+                            <th>p 值</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>产品质量 (Product Quality)</td>
+                            <td>33.2%</td>
+                            <td>27.6%</td>
+                            <td class="highlight-data">-5.6%</td>
+                            <td>137.24</td>
+                            <td>< 0.001</td>
+                        </tr>
+                        <tr>
+                            <td>动画角色 (Anime Character)</td>
+                            <td>7.4%</td>
+                            <td>12.6%</td>
+                            <td class="highlight-data">+5.2%</td>
+                            <td>237.10</td>
+                            <td>< 0.001</td>
+                        </tr>
+                        <tr>
+                            <td>世界观与叙事 (Worldview & Narrative)</td>
+                            <td>30.6%</td>
+                            <td>24.6%</td>
+                            <td class="highlight-data">-6.0%</td>
+                            <td>163.28</td>
+                            <td>< 0.001</td>
+                        </tr>
+                        <tr>
+                            <td>动画直接因果 (Causal Attribution)</td>
+                            <td>0.1%</td>
+                            <td>1.5%</td>
+                            <td class="highlight-data">+1.4%</td>
+                            <td>157.67</td>
+                            <td>< 0.001</td>
+                        </tr>
+                    </tbody>
+                </table>
             </div>
         </section>
 
     </div>
 
     <footer>
-        <p>> SYS.SHUTDOWN // &copy; 2026 LESLIE MU. ALL_RIGHTS_RESERVED.</p>
+        <p>&copy; 2026 Leslie Mu (母永林). Built with Premium Minimalism.</p>
     </footer>
 
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, {
+                threshold: 0.1 // 元素露出 10% 时触发动画
+            });
+
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(el => observer.observe(el));
+        });
+    </script>
 </body>
 </html>

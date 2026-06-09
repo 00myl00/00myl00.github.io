@@ -3,246 +3,226 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>你的名字 - 个人作品集</title>
+    <title>Leslie Mu (母永林) - Portfolio</title>
     <style>
-        /* 基础重置和字体设置 */
-        * {
+        :root {
+            --bg-color: #f8f9fa;
+            --text-color: #212529;
+            --primary-color: #007bff;
+            --accent-color: #6c757d;
+            --card-bg: #ffffff;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            line-height: 1.6;
+            color: var(--text-color);
+            background-color: var(--bg-color);
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background-color: #f9f9f9;
-        }
-        a {
-            text-decoration: none;
-            color: #007BFF;
-            transition: color 0.3s ease;
-        }
-        a:hover {
-            color: #0056b3;
         }
 
-        /* 布局容器 */
-        .container {
-            max-width: 1000px;
-            margin: 0 auto;
-            padding: 0 20px;
-        }
-
-        /* 导航栏头部 */
         header {
-            background-color: #fff;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            position: sticky;
-            top: 0;
-            z-index: 100;
-        }
-        .navbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 0;
-        }
-        .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #333;
-        }
-        .nav-links li {
-            display: inline;
-            margin-left: 20px;
-        }
-        .nav-links a {
-            color: #555;
-            font-weight: 500;
-        }
-        .nav-links a:hover {
-            color: #007BFF;
+            background: linear-gradient(135deg, #1e293b, #0f172a);
+            color: #ffffff;
+            padding: 100px 20px;
+            text-align: center;
         }
 
-        /* 主角介绍区 (Hero Section) */
-        .hero {
-            text-align: center;
-            padding: 100px 20px;
-            background-color: #fff;
-            border-bottom: 1px solid #eee;
-        }
-        .hero h1 {
+        header h1 {
+            margin: 0;
             font-size: 2.5rem;
-            margin-bottom: 10px;
+            letter-spacing: 1px;
         }
-        .hero p {
-            font-size: 1.2rem;
-            color: #666;
+
+        header .slogan {
+            font-size: 1.25rem;
+            color: #cbd5e1;
+            margin: 15px 0 30px;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        section {
+            margin-bottom: 60px;
+        }
+
+        h2 {
+            border-bottom: 2px solid var(--text-color);
+            padding-bottom: 10px;
+            font-size: 1.75rem;
             margin-bottom: 30px;
         }
-        .btn {
-            display: inline-block;
-            background-color: #007BFF;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-        .btn:hover {
-            background-color: #0056b3;
-            color: #fff;
-        }
 
-        /* 章节通用样式 */
-        section {
-            padding: 60px 0;
-        }
-        section h2 {
-            text-align: center;
-            font-size: 2rem;
-            margin-bottom: 40px;
-            color: #222;
-        }
-
-        /* 关于我 */
-        .about-content {
-            background: #fff;
-            padding: 30px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
-        /* 项目展示区 */
-        .projects-grid {
+        .info-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            font-size: 0.95rem;
+            color: #e2e8f0;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            color: #0f172a;
+        }
+
+        .meta {
+            color: var(--accent-color);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .links-hub {
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px dashed #e2e8f0;
+        }
+
+        .links-hub a {
+            display: inline-block;
+            margin-right: 15px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .links-hub a:hover {
+            text-decoration: underline;
+        }
+
+        /* 纯视觉作品样式 */
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             gap: 20px;
         }
-        .project-card {
-            background-color: #fff;
-            border-radius: 8px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-            transition: transform 0.3s ease;
-        }
-        .project-card:hover {
-            transform: translateY(-5px);
-        }
-        .project-card h3 {
-            margin-bottom: 10px;
-            color: #333;
-        }
-        .project-card p {
-            color: #666;
-            margin-bottom: 15px;
-            font-size: 0.95rem;
-        }
-        .tech-stack {
-            font-size: 0.85rem;
-            color: #888;
-            margin-bottom: 15px;
-        }
-        .project-link {
-            font-weight: bold;
+
+        .gallery img, .gallery video {
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            display: block;
         }
 
-        /* 联系方式 */
-        .contact-info {
-            text-align: center;
-            background: #fff;
-            padding: 40px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-        .contact-info p {
-            margin-bottom: 10px;
-            font-size: 1.1rem;
-        }
-
-        /* 页脚 */
         footer {
             text-align: center;
-            padding: 20px 0;
-            background-color: #333;
-            color: #fff;
-            margin-top: 40px;
+            padding: 40px 20px;
+            background-color: #0f172a;
+            color: #94a3b8;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="container navbar">
-            <a href=" " class="logo">你的名字</a >
-            <ul class="nav-links">
-                <li><a href="#about">关于我</a ></li>
-                <li><a href="#projects">项目经验</a ></li>
-                <li><a href="#contact">联系我</a ></li>
-            </ul>
+        <h1>母永林 / Leslie Mu</h1>
+        <div class="slogan">视听创作者 / Audiovisual Creator</div>
+        <div class="info-grid">
+            <div>📍 广州 • 贵阳 / Guangzhou • Guiyang</div>
+            <div>📞 15339518327</div>
+            <div>📧 urxanxlin@gmail.com</div>
+            <div>💬 QQ: 845314622</div>
         </div>
     </header>
 
-    <div class="hero">
-        <div class="container">
-            <h1>你好，我是 你的名字</h1>
-            <p>一名前端开发者 / 设计师 / 数据分析师（替换为你的职业定位）</p >
-            <a href="#projects" class="btn">查看我的作品</a >
-        </div>
+    <div class="container">
+        
+        <section id="education">
+            <h2>🎓 教育背景 / Education</h2>
+            <div class="card">
+                <h3>华南理工大学 / South China University of Technology</h3>
+                <div class="meta">2023.09 - 至今 (Present) | 新闻与传播学院 视听传播系</div>
+                <p>视听传播 本科在读 / Undergraduate Student (GPA: 3.86/4.0 | Top 15%)</p>
+            </div>
+            <div class="card">
+                <h3>韩国汉阳大学 / Hanyang University</h3>
+                <div class="meta">2024.09 - 2024.12 | 交换生项目 (Exchange Program)</div>
+                <p>学费互免学期交换（全英语授课）/ Tuition-waived Exchange Semester (English-taught)</p>
+            </div>
+        </section>
+
+        <section id="experience">
+            <h2>💼 实习与作品 / Experience & Works</h2>
+            
+            <div class="card">
+                <h3>VCT CN 无畏契约启点赛 | 中国青年网校媒记者</h3>
+                <div class="meta">2026.02</div>
+                <p>独立负责现场视听内容产出、赛事高燃混剪短视频拍摄制作以及EDG、AG等头部战队选手的赛后深度专访。</p>
+                <p class="meta">Led on-site audiovisual production, match recaps, and conducted post-match interviews with top esports teams like EDG and AG.</p>
+                <div class="links-hub">
+                    <strong>🔗 作品链接 / Works:</strong>
+                    <a href="https://s.cyol.com/articles/2026-02/11/content_jp722eH2.html?gid=3DlgPxr2" target="_blank">深度报道 01 / Report 01</a>
+                    <a href="https://s.cyol.com/articles/2026-02/09/content_5xBGvBSM.html" target="_blank">深度报道 02 / Report 02</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>贵州省广播电视台 | 交通音乐部新媒体运营实习生</h3>
+                <div class="meta">2024 寒假 (Winter Vacation)</div>
+                <p>主导打造精品短视频集《咖啡驾到：贵州100家咖啡馆打卡行动》，独立负责选题、拍摄、包装与后期剪辑，全矩阵平台累计浏览量破万。</p>
+                <p class="meta">Created the short video series "Coffee Arrival", managing scripting, filming, and post-editing. Reached over 10,000 views across platforms.</p>
+                <div class="links-hub">
+                    <strong>🔗 作品链接 / Works:</strong>
+                    <a href="https://www.gzstv.com/a/e0a509bf7e614c6099edaf106f97981c" target="_blank">官网报道 / TV Station Article</a>
+                    <a href="https://v.douyin.com/d_qWWonEvPY/" target="_blank">视频精选 01 / Video 01</a>
+                    <a href="https://v.douyin.com/569kA5_e7m4/" target="_blank">视频精选 02 / Video 02</a>
+                    <a href="https://v.douyin.com/3t0U2AM062w/" target="_blank">视频精选 03 / Video 03</a>
+                    <a href="https://v.douyin.com/oPANH_rnS1k/" target="_blank">视频精选 04 / Video 04</a>
+                    <a href="https://v.douyin.com/kBh8ssEHI40/" target="_blank">视频精选 05 / Video 05</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3>国际山地旅游联盟 (IMTA) | 秘书处综合业务部实习生</h3>
+                <div class="meta">2025 暑假 (Summer Vacation)</div>
+                <p>协同推进《贵州省开发亚太地区重点国家的入境旅游市场的策略研究报告》（全英文）深度校译，并负责国际山地旅游日申办单位宣发筹备。</p>
+                <p class="meta">Assisted in proofreading and translating the English strategic tourism report, and prepared promotional materials for the International Mountain Tourism Day.</p>
+            </div>
+        </section>
+
+        <section id="portfolio">
+            <h2>📷 视觉作品 / Visual Portfolio</h2>
+            <div class="gallery">
+                <img src="1.jpg" alt="Photography 1">
+                <img src="2.jpg" alt="Photography 2">
+                <img src="3.jpg" alt="Photography 3">
+                <video src="111.mp4" controls poster="video-cover.jpg"></video>
+            </div>
+        </section>
+
+        <section id="research">
+            <h2>📊 研究成果 / Research</h2>
+            <div class="card">
+                <h3>游戏衍生动画对游戏本体的拯救型跨媒介反哺研究——以《赛博朋克:边缘行者》的逆势拯救为例</h3>
+                <p><strong>摘要：</strong> 本研究清洗并分析了 54,787 条 Steam 玩家中英文评论数据，通过关键词匹配与卡方检验，探究衍生动画如何在不进行技术修复的前提下重塑核心情感认同，并总结了“拯救型跨媒介反哺”生效的四大核心机制。</p>
+                <hr style="border: 0; border-top: 1px dashed #cbd5e1; margin: 15px 0;">
+                <h3>Salvage-oriented Transmedia Feedback of Spin-off Anime on Games: A Case Study of Cyberpunk: Edgerunners</h3>
+                <p class="meta"><strong>Abstract:</strong> This study analyzed 54,787 cleaned Chinese and English player reviews on Steam using chi-square tests. It evaluates how a high-quality spin-off can rebuild emotional connection and reverse product reputation without software patches, defining four essential conditions for successful transmedia feedback.</p>
+            </div>
+        </section>
+
     </div>
 
-    <section id="about">
-        <div class="container">
-            <h2>关于我</h2>
-            <div class="about-content">
-                <p>在这里写一段简短的个人简介。比如：我拥有X年的行业经验，热爱解决复杂的问题。我擅长使用XX技术栈（如 HTML, CSS, JavaScript, Python 等）来构建高质量的数字产品。在业余时间，我喜欢学习新技术和探索创新设计。</p >
-            </div>
-        </div>
-    </section>
-
-    <section id="projects">
-        <div class="container">
-            <h2>项目经验</h2>
-            <div class="projects-grid">
-                
-                <div class="project-card">
-                    <h3>项目名称 一</h3>
-                    <p>这是一个简短的项目描述，介绍了这个项目是为了解决什么问题，以及你在其中承担了什么角色。</p >
-                    <div class="tech-stack"><strong>技术栈:</strong> HTML, CSS, JavaScript</div>
-                    <a href="#" class="project-link" target="_blank">查看项目 &rarr;</a >
-                </div>
-
-                <div class="project-card">
-                    <h3>项目名称 二</h3>
-                    <p>这是第二个项目的描述。你可以突出说明这个项目的难点以及你最终实现的成果或数据指标。</p >
-                    <div class="tech-stack"><strong>技术栈:</strong> React, Node.js</div>
-                    <a href="#" class="project-link" target="_blank">查看项目 &rarr;</a >
-                </div>
-
-                <div class="project-card">
-                    <h3>项目名称 三</h3>
-                    <p>这是第三个项目的描述。无论是个人练习还是商业项目，只要能体现你的能力都可以放上来。</p >
-                    <div class="tech-stack"><strong>技术栈:</strong> Vue.js, Tailwind CSS</div>
-                    <a href="#" class="project-link" target="_blank">查看项目 &rarr;</a >
-                </div>
-
-            </div>
-        </div>
-    </section>
-
-    <section id="contact">
-        <div class="container">
-            <h2>联系我</h2>
-            <div class="contact-info">
-                <p>如果你有任何合作意向或工作机会，欢迎随时联系我：</p >
-                <p><strong>邮箱:</strong> <a href="mailto:your.email@example.com">your.email@example.com</a ></p >
-                <p><strong>GitHub:</strong> <a href="#" target="_blank">github.com/你的账号</a ></p >
-                <p><strong>LinkedIn / 博客:</strong> <a href="#" target="_blank">点击访问</a ></p >
-            </div>
-        </div>
-    </section>
-
     <footer>
-        <p>&copy; 2026 你的名字. All rights reserved.</p >
+        <p>&copy; 2026 Leslie Mu (母永林). Powered by GitHub Pages.</p>
     </footer>
+
 </body>
 </html>

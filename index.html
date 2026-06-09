@@ -5,14 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Leslie Mu // Portfolio</title>
     <style>
-        /* 高级简约主题变量 */
+        /* 极致深色模式变量 */
         :root {
-            --bg-primary: #ffffff;
-            --bg-secondary: #fbfbfd;
-            --text-primary: #1d1d1f;
-            --text-secondary: #86868b;
-            --accent-color: #0066cc;
-            --border-color: #e5e5ea;
+            --bg-primary: #0a0a0c;
+            --bg-secondary: #141417;
+            --text-primary: #f5f5f7;
+            --text-secondary: #a1a1a6;
+            --accent-color: #2997ff; /* 苹果深色模式下的经典蓝 */
+            --border-color: #333336;
             --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
         }
 
@@ -28,6 +28,7 @@
             color: var(--text-primary);
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
+            overflow-x: hidden;
         }
 
         /* 布局与容器 */
@@ -46,10 +47,10 @@
             border-bottom: none;
         }
 
-        /* 滚动动画初始状态 */
+        /* 滚动动画：统一的浮现效果 */
         .fade-in {
             opacity: 0;
-            transform: translateY(30px);
+            transform: translateY(40px);
             transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
@@ -58,12 +59,30 @@
             transform: translateY(0);
         }
 
+        /* 首屏文字逐行加载动画 (Staggered Animations) */
+        @keyframes slideUpFade {
+            0% {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .stagger-1 { animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; animation-delay: 0.1s; }
+        .stagger-2 { animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; animation-delay: 0.3s; }
+        .stagger-3 { animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; animation-delay: 0.5s; }
+        .stagger-4 { animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; animation-delay: 0.7s; }
+
         /* 标题排版 */
         .section-title {
             font-size: 2rem;
             font-weight: 600;
             margin-bottom: 10px;
             letter-spacing: -0.5px;
+            color: var(--text-primary);
         }
 
         .section-subtitle {
@@ -77,15 +96,18 @@
 
         /* 首屏简介 (Hero Section) */
         .hero {
-            padding: 15vh 0 10vh;
+            padding: 20vh 0 15vh;
             text-align: center;
         }
 
         .hero h1 {
-            font-size: 3.5rem;
+            font-size: 4rem;
             font-weight: 700;
             letter-spacing: -1px;
             margin-bottom: 10px;
+            background: linear-gradient(135deg, #fff, #888);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .hero .en-name {
@@ -93,6 +115,7 @@
             color: var(--text-secondary);
             font-weight: 400;
             margin-bottom: 30px;
+            letter-spacing: 2px;
         }
 
         .slogan {
@@ -101,6 +124,7 @@
             max-width: 600px;
             margin: 0 auto 40px;
             line-height: 1.8;
+            font-weight: 300;
         }
 
         .slogan span {
@@ -108,6 +132,7 @@
             font-size: 1rem;
             display: block;
             margin-top: 5px;
+            font-weight: 400;
         }
 
         .contact-info {
@@ -119,24 +144,25 @@
             color: var(--text-secondary);
         }
 
-        /* 视觉作品画廊 (高级网格+悬浮交互) */
+        /* 视觉作品画廊 (沉浸式深色网格) */
         .gallery {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
+            gap: 40px;
+            margin-top: 20px; /* 补足删掉标题后的间距 */
         }
 
         .gallery-item {
-            border-radius: 12px;
+            border-radius: 8px;
             overflow: hidden;
             background: var(--bg-secondary);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.03);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
         }
 
         .gallery-item:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
         }
 
         .gallery-item img {
@@ -144,18 +170,20 @@
             height: 100%;
             object-fit: cover;
             display: block;
-            transition: transform 0.6s ease;
+            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+            filter: brightness(0.9);
         }
 
         .gallery-item:hover img {
-            transform: scale(1.05);
+            transform: scale(1.03);
+            filter: brightness(1.1);
         }
 
         /* 履历与经历卡片 */
         .card-list {
             display: flex;
             flex-direction: column;
-            gap: 40px;
+            gap: 50px;
         }
 
         .experience-card {
@@ -174,28 +202,34 @@
             color: var(--text-secondary);
             font-size: 0.95rem;
             font-weight: 500;
+            border-left: 2px solid var(--border-color);
+            padding-left: 15px;
+            height: fit-content;
         }
 
         .exp-time span {
             display: block;
             font-size: 0.85rem;
             margin-top: 4px;
+            color: #666;
         }
 
         .exp-content h3 {
             font-size: 1.3rem;
             margin-bottom: 5px;
+            color: var(--text-primary);
         }
 
         .exp-content .sub-title {
-            color: var(--text-secondary);
+            color: var(--accent-color);
             font-size: 0.95rem;
             margin-bottom: 15px;
         }
 
         .exp-content p {
             margin-bottom: 10px;
-            color: #333;
+            color: #d1d1d6;
+            font-weight: 300;
         }
 
         .exp-content p.en-desc {
@@ -204,32 +238,40 @@
             margin-bottom: 20px;
         }
 
-        /* 链接交互设计 */
+        /* 链接交互设计 (深色模式适配) */
+        .links-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
         .links-group a {
             display: inline-flex;
             align-items: center;
-            font-size: 0.9rem;
-            color: var(--accent-color);
+            font-size: 0.85rem;
+            color: var(--text-primary);
             text-decoration: none;
-            margin-right: 20px;
-            margin-bottom: 10px;
-            padding: 6px 12px;
-            background: rgba(0, 102, 204, 0.05);
-            border-radius: 6px;
-            transition: background 0.2s, transform 0.2s;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            transition: all 0.3s ease;
         }
 
         .links-group a:hover {
-            background: rgba(0, 102, 204, 0.1);
-            transform: translateX(3px);
+            background: var(--text-primary);
+            color: var(--bg-primary);
+            transform: translateY(-2px);
+            border-color: var(--text-primary);
         }
 
-        /* 数据表格极简风 */
+        /* 数据表格暗黑风 */
         .data-table-wrapper {
             overflow-x: auto;
             margin-top: 30px;
-            border-radius: 8px;
+            border-radius: 12px;
             border: 1px solid var(--border-color);
+            background: var(--bg-secondary);
         }
 
         table {
@@ -240,12 +282,12 @@
         }
 
         th, td {
-            padding: 16px 20px;
+            padding: 18px 20px;
             border-bottom: 1px solid var(--border-color);
         }
 
         th {
-            background-color: var(--bg-secondary);
+            background-color: rgba(255,255,255,0.02);
             font-weight: 500;
             color: var(--text-secondary);
             font-size: 0.85rem;
@@ -256,6 +298,10 @@
             border-bottom: none;
         }
 
+        tr:hover td {
+            background-color: rgba(255,255,255,0.02);
+        }
+
         .highlight-data {
             font-weight: 600;
             color: var(--accent-color);
@@ -264,10 +310,10 @@
         /* 页脚 */
         footer {
             text-align: center;
-            padding: 50px 20px;
-            color: var(--text-secondary);
+            padding: 60px 20px;
+            color: #666;
             font-size: 0.85rem;
-            background-color: var(--bg-secondary);
+            background-color: var(--bg-primary);
         }
     </style>
 </head>
@@ -275,43 +321,40 @@
 
     <div class="container">
         
-        <section class="hero fade-in">
-            <h1>母永林</h1>
-            <div class="en-name">Leslie Mu</div>
-            <div class="slogan">
-                视听创作者 / 数据分析研究者
-                <span>Audiovisual Creator & Data Analysis Researcher</span>
+        <section class="hero">
+            <h1 class="stagger-1">母永林</h1>
+            <div class="en-name stagger-2">Leslie Mu</div>
+            <div class="slogan stagger-3">
+                视听创作者 / 数据分析探索者
+                <span>Audiovisual Creator & Data Analysis Explorer</span>
             </div>
-            <div class="contact-info">
+            <div class="contact-info stagger-4">
                 <span>📍 广州 • 贵阳 / Guangzhou • Guiyang</span>
                 <span>📞 153 3951 8327</span>
                 <span>📧 urxanxlin@gmail.com</span>
             </div>
         </section>
 
-       <section id="portfolio" class="fade-in">
-            <h2 class="section-title">视觉档案</h2>
-            <div class="section-subtitle">Visual Archives</div>
-            
+        <section id="portfolio" style="padding-top: 0; border-bottom: none;">
             <div class="gallery">
-                <div class="gallery-item">
+                <div class="gallery-item fade-in">
                     <img src="1.JPG" alt="Photography 1">
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item fade-in" style="transition-delay: 0.1s;">
                     <img src="2.JPG" alt="Photography 2">
                 </div>
-                <div class="gallery-item">
+                <div class="gallery-item fade-in" style="transition-delay: 0.2s;">
                     <img src="3.JPG" alt="Photography 3">
                 </div>
             </div>
         </section>
 
-        <section id="experience" class="fade-in">
-            <h2 class="section-title">教育与实践经历</h2>
-            <div class="section-subtitle">Education & Experience</div>
+        <section id="experience">
+            <h2 class="section-title fade-in">教育与实践经历</h2>
+            <div class="section-subtitle fade-in">Education & Experience</div>
             
             <div class="card-list">
-                <div class="experience-card">
+                <div class="experience-card fade-in">
                     <div class="exp-time">
                         2023.09 - 至今
                         <span>Present</span>
@@ -323,7 +366,7 @@
                     </div>
                 </div>
 
-                <div class="experience-card">
+                <div class="experience-card fade-in">
                     <div class="exp-time">
                         2024.09 - 12
                         <span>Fall 2024</span>
@@ -335,7 +378,7 @@
                     </div>
                 </div>
 
-                <div class="experience-card">
+                <div class="experience-card fade-in">
                     <div class="exp-time">
                         2026.02
                         <span>Feb 2026</span>
@@ -352,7 +395,7 @@
                     </div>
                 </div>
 
-                <div class="experience-card">
+                <div class="experience-card fade-in">
                     <div class="exp-time">
                         2024 寒假
                         <span>Winter 2024</span>
@@ -363,27 +406,30 @@
                         <p>主导策划《咖啡驾到》短视频集，独立完成脚本、拍摄与后期包装，全矩阵浏览量破万。</p>
                         <p class="en-desc">Directed the short video series "Coffee Arrival", achieving >10k views across platforms.</p>
                         <div class="links-group">
-                            <a href="https://www.gzstv.com/a/e0a509bf7e614c6099edaf106f97981c" target="_blank">官网报道 ↗</a>
-                            <a href="https://v.douyin.com/d_qWWonEvPY/" target="_blank">视频系列 01 ↗</a>
-                            <a href="https://v.douyin.com/569kA5_e7m4/" target="_blank">视频系列 02 ↗</a>
+                            <a href="https://www.gzstv.com/a/e0a509bf7e614c6099edaf106f97981c" target="_blank">电视台官网报道 ↗</a>
+                            <a href="https://v.douyin.com/d_qWWonEvPY/" target="_blank">新媒体矩阵视频 01 ↗</a>
+                            <a href="https://v.douyin.com/569kA5_e7m4/" target="_blank">新媒体矩阵视频 02 ↗</a>
+                            <a href="https://v.douyin.com/3t0U2AM062w/" target="_blank">新媒体矩阵视频 03 ↗</a>
+                            <a href="https://v.douyin.com/oPANH_rnS1k/" target="_blank">新媒体矩阵视频 04 ↗</a>
+                            <a href="https://v.douyin.com/kBh8ssEHI40/" target="_blank">新媒体矩阵视频 05 ↗</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
-        <section id="research" class="fade-in">
-            <h2 class="section-title">学术研究与数据分析</h2>
-            <div class="section-subtitle">Academic Research & Data Analysis</div>
+        <section id="research">
+            <h2 class="section-title fade-in">学术研究与数据分析</h2>
+            <div class="section-subtitle fade-in">Academic Research & Data Analysis</div>
             
-            <div class="exp-content" style="margin-bottom: 30px;">
+            <div class="exp-content fade-in" style="margin-bottom: 30px;">
                 <h3>《游戏衍生动画对游戏本体的拯救型跨媒介反哺研究》</h3>
                 <div class="sub-title">核心方法：Kaggle 评论挖掘 / 关键词匹配 / 卡方检验 (Chi-square test)</div>
                 <p>提取并清洗 54,787 条 Steam 玩家数据，验证衍生动画（《赛博朋克:边缘行者》）如何在不进行技术修复的前提下重塑游戏核心口碑。</p>
                 <p class="en-desc">Analyzed 54,787 Steam reviews to explore how a spin-off anime can reconstruct player emotional connection and reverse product reputation without software patches.</p>
             </div>
 
-            <div class="data-table-wrapper">
+            <div class="data-table-wrapper fade-in">
                 <table>
                     <thead>
                         <tr>
@@ -436,21 +482,26 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 Leslie Mu (母永林). Built with Premium Minimalism.</p>
+        <p>&copy; 2026 Leslie Mu (母永林). Built with Premium Dark Mode.</p>
     </footer>
 
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            // 设置 Intersection Observer 监听元素进入视口
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
+                        // 可选：触发后取消监听，确保只播放一次
+                        // observer.unobserve(entry.target);
                     }
                 });
             }, {
-                threshold: 0.1 // 元素露出 10% 时触发动画
+                threshold: 0.15, // 元素露出 15% 时触发
+                rootMargin: "0px 0px -50px 0px" // 提前一点点触发
             });
 
+            // 获取所有带 fade-in 类的元素并绑定监听
             const elements = document.querySelectorAll('.fade-in');
             elements.forEach(el => observer.observe(el));
         });

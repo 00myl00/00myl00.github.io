@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>你的名字 - 个人作品集</title>
+    <style>
+        /* 基础重置和字体设置 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background-color: #f9f9f9;
+        }
+        a {
+            text-decoration: none;
+            color: #007BFF;
+            transition: color 0.3s ease;
+        }
+        a:hover {
+            color: #0056b3;
+        }
+
+        /* 布局容器 */
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* 导航栏头部 */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 0;
+        }
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #333;
+        }
+        .nav-links li {
+            display: inline;
+            margin-left: 20px;
+        }
+        .nav-links a {
+            color: #555;
+            font-weight: 500;
+        }
+        .nav-links a:hover {
+            color: #007BFF;
+        }
+
+        /* 主角介绍区 (Hero Section) */
+        .hero {
+            text-align: center;
+            padding: 100px 20px;
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+        }
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+        .hero p {
+            font-size: 1.2rem;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .btn {
+            display: inline-block;
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+            color: #fff;
+        }
+
+        /* 章节通用样式 */
+        section {
+            padding: 60px 0;
+        }
+        section h2 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 40px;
+            color: #222;
+        }
+
+        /* 关于我 */
+        .about-content {
+            background: #fff;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        /* 项目展示区 */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .project-card {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-5px);
+        }
+        .project-card h3 {
+            margin-bottom: 10px;
+            color: #333;
+        }
+        .project-card p {
+            color: #666;
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+        }
+        .tech-stack {
+            font-size: 0.85rem;
+            color: #888;
+            margin-bottom: 15px;
+        }
+        .project-link {
+            font-weight: bold;
+        }
+
+        /* 联系方式 */
+        .contact-info {
+            text-align: center;
+            background: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+        .contact-info p {
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        /* 页脚 */
+        footer {
+            text-align: center;
+            padding: 20px 0;
+            background-color: #333;
+            color: #fff;
+            margin-top: 40px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container navbar">
+            <a href=" " class="logo">你的名字</a >
+            <ul class="nav-links">
+                <li><a href="#about">关于我</a ></li>
+                <li><a href="#projects">项目经验</a ></li>
+                <li><a href="#contact">联系我</a ></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="hero">
+        <div class="container">
+            <h1>你好，我是 你的名字</h1>
+            <p>一名前端开发者 / 设计师 / 数据分析师（替换为你的职业定位）</p >
+            <a href="#projects" class="btn">查看我的作品</a >
+        </div>
+    </div>
+
+    <section id="about">
+        <div class="container">
+            <h2>关于我</h2>
+            <div class="about-content">
+                <p>在这里写一段简短的个人简介。比如：我拥有X年的行业经验，热爱解决复杂的问题。我擅长使用XX技术栈（如 HTML, CSS, JavaScript, Python 等）来构建高质量的数字产品。在业余时间，我喜欢学习新技术和探索创新设计。</p >
+            </div>
+        </div>
+    </section>
+
+    <section id="projects">
+        <div class="container">
+            <h2>项目经验</h2>
+            <div class="projects-grid">
+                
+                <div class="project-card">
+                    <h3>项目名称 一</h3>
+                    <p>这是一个简短的项目描述，介绍了这个项目是为了解决什么问题，以及你在其中承担了什么角色。</p >
+                    <div class="tech-stack"><strong>技术栈:</strong> HTML, CSS, JavaScript</div>
+                    <a href="#" class="project-link" target="_blank">查看项目 &rarr;</a >
+                </div>
+
+                <div class="project-card">
+                    <h3>项目名称 二</h3>
+                    <p>这是第二个项目的描述。你可以突出说明这个项目的难点以及你最终实现的成果或数据指标。</p >
+                    <div class="tech-stack"><strong>技术栈:</strong> React, Node.js</div>
+                    <a href="#" class="project-link" target="_blank">查看项目 &rarr;</a >
+                </div>
+
+                <div class="project-card">
+                    <h3>项目名称 三</h3>
+                    <p>这是第三个项目的描述。无论是个人练习还是商业项目，只要能体现你的能力都可以放上来。</p >
+                    <div class="tech-stack"><strong>技术栈:</strong> Vue.js, Tailwind CSS</div>
+                    <a href="#" class="project-link" target="_blank">查看项目 &rarr;</a >
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="contact">
+        <div class="container">
+            <h2>联系我</h2>
+            <div class="contact-info">
+                <p>如果你有任何合作意向或工作机会，欢迎随时联系我：</p >
+                <p><strong>邮箱:</strong> <a href="mailto:your.email@example.com">your.email@example.com</a ></p >
+                <p><strong>GitHub:</strong> <a href="#" target="_blank">github.com/你的账号</a ></p >
+                <p><strong>LinkedIn / 博客:</strong> <a href="#" target="_blank">点击访问</a ></p >
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 你的名字. All rights reserved.</p >
+    </footer>
+</body>
+</html>

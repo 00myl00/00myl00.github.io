@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Leslie Mu // Portfolio</title>
+    <title>Mu Yonglin // Portfolio</title>
+    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
     <style>
         /* 极致深色模式变量 */
         :root {
@@ -11,7 +14,7 @@
             --bg-secondary: #141417;
             --text-primary: #f5f5f7;
             --text-secondary: #a1a1a6;
-            --accent-color: #2997ff; /* 苹果深色模式下的经典蓝 */
+            --accent-color: #2997ff; 
             --border-color: #333336;
             --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
         }
@@ -47,30 +50,22 @@
             border-bottom: none;
         }
 
-        /* 滚动动画：统一的浮现效果 */
+        /* 滚动动画 */
         .fade-in {
             opacity: 0;
             transform: translateY(40px);
             transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
         }
-
         .fade-in.visible {
             opacity: 1;
             transform: translateY(0);
         }
 
-        /* 首屏文字逐行加载动画 (Staggered Animations) */
+        /* 首屏逐行加载动画 */
         @keyframes slideUpFade {
-            0% {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            100% {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            0% { opacity: 0; transform: translateY(30px); }
+            100% { opacity: 1; transform: translateY(0); }
         }
-
         .stagger-1 { animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; animation-delay: 0.1s; }
         .stagger-2 { animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; animation-delay: 0.3s; }
         .stagger-3 { animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; animation-delay: 0.5s; }
@@ -94,7 +89,7 @@
             letter-spacing: 1px;
         }
 
-        /* 首屏简介 (Hero Section) */
+        /* 首屏简介 */
         .hero {
             padding: 20vh 0 15vh;
             text-align: center;
@@ -144,176 +139,154 @@
             color: var(--text-secondary);
         }
 
-        /* 视觉作品画廊 (沉浸式深色网格) */
-        .gallery {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            margin-top: 20px; /* 补足删掉标题后的间距 */
+        /* 高级相册交互区 */
+        .swiper {
+            width: 320px; 
+            height: 480px; 
+            margin-top: 20px;
         }
 
-        .gallery-item {
-            border-radius: 8px;
+        @media (min-width: 768px) {
+            .swiper { width: 400px; height: 600px; }
+        }
+
+        .swiper-slide {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
             overflow: hidden;
-            background: var(--bg-secondary);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.5s ease;
+            background-color: var(--bg-secondary);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            cursor: grab;
         }
 
-        .gallery-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.8);
+        .swiper-slide:active {
+            cursor: grabbing;
         }
 
-        .gallery-item img {
+        .swiper-slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            display: block;
-            transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
-            filter: brightness(0.9);
+            transition: transform 0.4s ease, filter 0.4s ease;
+            filter: brightness(0.85);
         }
 
-        .gallery-item:hover img {
-            transform: scale(1.03);
+        .swiper-slide:hover img {
+            transform: scale(1.05);
             filter: brightness(1.1);
         }
 
-        /* 履历与经历卡片 */
-        .card-list {
-            display: flex;
-            flex-direction: column;
-            gap: 50px;
-        }
-
-        .experience-card {
-            display: grid;
-            grid-template-columns: 1fr 3fr;
-            gap: 20px;
-        }
-
-        @media (max-width: 768px) {
-            .experience-card {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .exp-time {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            font-weight: 500;
-            border-left: 2px solid var(--border-color);
-            padding-left: 15px;
-            height: fit-content;
-        }
-
-        .exp-time span {
-            display: block;
-            font-size: 0.85rem;
-            margin-top: 4px;
-            color: #666;
-        }
-
-        .exp-content h3 {
-            font-size: 1.3rem;
-            margin-bottom: 5px;
-            color: var(--text-primary);
-        }
-
-        .exp-content .sub-title {
-            color: var(--accent-color);
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-        }
-
-        .exp-content p {
-            margin-bottom: 10px;
-            color: #d1d1d6;
-            font-weight: 300;
-        }
-
-        .exp-content p.en-desc {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 20px;
-        }
-
-        /* 链接交互设计 (深色模式适配) */
-        .links-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-        }
-
-        .links-group a {
-            display: inline-flex;
-            align-items: center;
-            font-size: 0.85rem;
-            color: var(--text-primary);
-            text-decoration: none;
-            padding: 8px 16px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            transition: all 0.3s ease;
-        }
-
-        .links-group a:hover {
-            background: var(--text-primary);
-            color: var(--bg-primary);
-            transform: translateY(-2px);
-            border-color: var(--text-primary);
-        }
-
-        /* 数据表格暗黑风 */
-        .data-table-wrapper {
-            overflow-x: auto;
-            margin-top: 30px;
-            border-radius: 12px;
-            border: 1px solid var(--border-color);
-            background: var(--bg-secondary);
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            text-align: left;
-            font-size: 0.95rem;
-        }
-
-        th, td {
-            padding: 18px 20px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        th {
-            background-color: rgba(255,255,255,0.02);
-            font-weight: 500;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            text-transform: uppercase;
-        }
-
-        tr:last-child td {
-            border-bottom: none;
-        }
-
-        tr:hover td {
-            background-color: rgba(255,255,255,0.02);
-        }
-
-        .highlight-data {
-            font-weight: 600;
-            color: var(--accent-color);
-        }
-
-        /* 页脚 */
-        footer {
+        .swiper-instruction {
             text-align: center;
-            padding: 60px 20px;
-            color: #666;
+            color: var(--text-secondary);
             font-size: 0.85rem;
-            background-color: var(--bg-primary);
+            margin-top: 30px;
+            letter-spacing: 1px;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; }
+            50% { opacity: 1; }
+            100% { opacity: 0.5; }
+        }
+
+        /* 全屏图片放大器 */
+        .lightbox {
+            display: none; 
+            position: fixed;
+            z-index: 9999;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(10px); 
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            cursor: zoom-out; 
+        }
+
+        .lightbox.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 90vh;
+            border-radius: 8px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transform: scale(0.95);
+            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .lightbox.active img {
+            transform: scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            color: #fff;
+            font-size: 40px;
+            font-weight: 300;
+            cursor: pointer;
+            transition: color 0.2s;
+            z-index: 10000;
+        }
+
+        .close-btn:hover {
+            color: var(--accent-color);
+        }
+
+        /* 履历与经历卡片 */
+        .card-list { display: flex; flex-direction: column; gap: 50px; }
+        .experience-card { display: grid; grid-template-columns: 1fr 3fr; gap: 20px; }
+        @media (max-width: 768px) { .experience-card { grid-template-columns: 1fr; } }
+        
+        .exp-time {
+            color: var(--text-secondary); font-size: 0.95rem; font-weight: 500;
+            border-left: 2px solid var(--border-color); padding-left: 15px; height: fit-content;
+        }
+        .exp-time span { display: block; font-size: 0.85rem; margin-top: 4px; color: #666; }
+        .exp-content h3 { font-size: 1.3rem; margin-bottom: 5px; color: var(--text-primary); }
+        .exp-content .sub-title { color: var(--accent-color); font-size: 0.95rem; margin-bottom: 15px; }
+        .exp-content p { margin-bottom: 10px; color: #d1d1d6; font-weight: 300; }
+        .exp-content p.en-desc { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; }
+
+        /* 链接交互设计 */
+        .links-group { display: flex; flex-wrap: wrap; gap: 12px; }
+        .links-group a {
+            display: inline-flex; align-items: center; font-size: 0.85rem; color: var(--text-primary);
+            text-decoration: none; padding: 8px 16px; background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-color); border-radius: 20px; transition: all 0.3s ease;
+        }
+        .links-group a:hover {
+            background: var(--text-primary); color: var(--bg-primary);
+            transform: translateY(-2px); border-color: var(--text-primary);
+        }
+
+        /* 数据表格 */
+        .data-table-wrapper {
+            overflow-x: auto; margin-top: 30px; border-radius: 12px;
+            border: 1px solid var(--border-color); background: var(--bg-secondary);
+        }
+        table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; }
+        th, td { padding: 18px 20px; border-bottom: 1px solid var(--border-color); }
+        th { background-color: rgba(255,255,255,0.02); font-weight: 500; color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; }
+        tr:last-child td { border-bottom: none; }
+        tr:hover td { background-color: rgba(255,255,255,0.02); }
+        .highlight-data { font-weight: 600; color: var(--accent-color); }
+
+        footer {
+            text-align: center; padding: 60px 20px; color: #666;
+            font-size: 0.85rem; background-color: var(--bg-primary);
         }
     </style>
 </head>
@@ -322,31 +295,35 @@
     <div class="container">
         
         <section class="hero">
-            <h1 class="stagger-1">母永林</h1>
-            <div class="en-name stagger-2">Leslie Mu</div>
+            <h1 class="stagger-1">Mu Yonglin</h1>
+            <div class="en-name stagger-2">Leslie</div>
             <div class="slogan stagger-3">
                 视听创作者 / 数据分析探索者
                 <span>Audiovisual Creator & Data Analysis Explorer</span>
             </div>
             <div class="contact-info stagger-4">
-                <span>📍 广州 • 贵阳 / Guangzhou • Guiyang</span>
-                <span>📞 153 3951 8327</span>
-                <span>📧 urxanxlin@gmail.com</span>
+                <span>广州 • 贵阳 / Guangzhou • Guiyang</span>
+                <span>153 3951 8327</span>
+                <span>urxanxlin@gmail.com</span>
             </div>
         </section>
 
-        <section id="portfolio" style="padding-top: 0; border-bottom: none;">
-            <div class="gallery">
-                <div class="gallery-item fade-in">
-                    <img src="1.JPG" alt="Photography 1">
-                </div>
-                <div class="gallery-item fade-in" style="transition-delay: 0.1s;">
-                    <img src="2.JPG" alt="Photography 2">
-                </div>
-                <div class="gallery-item fade-in" style="transition-delay: 0.2s;">
-                    <img src="3.JPG" alt="Photography 3">
+        <section id="portfolio" style="padding-top: 0; border-bottom: none;" class="fade-in">
+            <div class="swiper mySwiper">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide"><img src="1.JPG" alt="Photo 1" onclick="openLightbox(this.src)"></div>
+                    <div class="swiper-slide"><img src="2.JPG" alt="Photo 2" onclick="openLightbox(this.src)"></div>
+                    <div class="swiper-slide"><img src="3.JPG" alt="Photo 3" onclick="openLightbox(this.src)"></div>
+                    <div class="swiper-slide"><img src="4.JPG" alt="Photo 4" onclick="openLightbox(this.src)"></div>
+                    <div class="swiper-slide"><img src="5.JPG" alt="Photo 5" onclick="openLightbox(this.src)"></div>
+                    <div class="swiper-slide"><img src="6.JPG" alt="Photo 6" onclick="openLightbox(this.src)"></div>
+                    <div class="swiper-slide"><img src="7.JPG" alt="Photo 7" onclick="openLightbox(this.src)"></div>
+                    <div class="swiper-slide"><img src="8.JPG" alt="Photo 8" onclick="openLightbox(this.src)"></div>
+                    <div class="swiper-slide"><img src="9.JPG" alt="Photo 9" onclick="openLightbox(this.src)"></div>
+                    <div class="swiper-slide"><img src="10.JPG" alt="Photo 10" onclick="openLightbox(this.src)"></div>
                 </div>
             </div>
+            <div class="swiper-instruction">← 滑动切换 / Swipe to explore · 单击放大 / Click to expand →</div>
         </section>
 
         <section id="experience">
@@ -374,7 +351,7 @@
                     <div class="exp-content">
                         <h3>韩国汉阳大学 (Hanyang University)</h3>
                         <div class="sub-title">学费互免交换生 / Exchange Student</div>
-                        <p>主导跨文化媒体战略企划项目（全英语授课）。</p>
+                        <p>参与并推进跨文化媒体战略企划项目（全英语授课）。</p>
                     </div>
                 </div>
 
@@ -384,10 +361,10 @@
                         <span>Feb 2026</span>
                     </div>
                     <div class="exp-content">
-                        <h3>中国青年网校媒记者</h3>
-                        <div class="sub-title">VCT CN 无畏契约启点赛 / VCT CN Valorant Kickoff</div>
-                        <p>独立负责赛事现场视听内容产出，主导 EDG、AG 等头部战队赛后深度专访。</p>
-                        <p class="en-desc">Led on-site audiovisual production and post-match interviews with top esports teams.</p>
+                        <h3>VCT CN 无畏契约启点赛 (Valorant Kickoff)</h3>
+                        <div class="sub-title">中国青年网校媒记者 / Media Reporter, China Youth Network</div>
+                        <p>参与赛事现场的视听内容产出，并协助完成 EDG、AG 等头部战队的赛后深度专访与报道工作。</p>
+                        <p class="en-desc">Participated in on-site audiovisual production and assisted with post-match interviews and reporting for top esports teams.</p>
                         <div class="links-group">
                             <a href="https://s.cyol.com/articles/2026-02/11/content_jp722eH2.html?gid=3DlgPxr2" target="_blank">报道专访 01 ↗</a>
                             <a href="https://s.cyol.com/articles/2026-02/09/content_5xBGvBSM.html" target="_blank">报道专访 02 ↗</a>
@@ -403,8 +380,8 @@
                     <div class="exp-content">
                         <h3>贵州省广播电视台</h3>
                         <div class="sub-title">新媒体运营实习生 / New Media Operation Intern</div>
-                        <p>主导策划《咖啡驾到》短视频集，独立完成脚本、拍摄与后期包装，全矩阵浏览量破万。</p>
-                        <p class="en-desc">Directed the short video series "Coffee Arrival", achieving >10k views across platforms.</p>
+                        <p>参与策划《咖啡驾到》短视频集，负责部分脚本撰写、拍摄与后期包装，助力全矩阵浏览量破万。</p>
+                        <p class="en-desc">Co-planned the short video series "Coffee Arrival", taking part in scripting, filming, and editing, helping to reach >10k views.</p>
                         <div class="links-group">
                             <a href="https://www.gzstv.com/a/e0a509bf7e614c6099edaf106f97981c" target="_blank">电视台官网报道 ↗</a>
                             <a href="https://v.douyin.com/d_qWWonEvPY/" target="_blank">新媒体矩阵视频 01 ↗</a>
@@ -424,9 +401,9 @@
             
             <div class="exp-content fade-in" style="margin-bottom: 30px;">
                 <h3>《游戏衍生动画对游戏本体的拯救型跨媒介反哺研究》</h3>
-                <div class="sub-title">核心方法：Kaggle 评论挖掘 / 关键词匹配 / 卡方检验 (Chi-square test)</div>
-                <p>提取并清洗 54,787 条 Steam 玩家数据，验证衍生动画（《赛博朋克:边缘行者》）如何在不进行技术修复的前提下重塑游戏核心口碑。</p>
-                <p class="en-desc">Analyzed 54,787 Steam reviews to explore how a spin-off anime can reconstruct player emotional connection and reverse product reputation without software patches.</p>
+                <div class="sub-title">课程论文 / Kaggle 评论挖掘 / 关键词匹配 / 卡方检验</div>
+                <p>本研究作为专业课程的学术探索，以《赛博朋克2077》及其衍生动画为案例，提取并清洗了 54,787 条 Steam 玩家中英文评论数据。研究通过严谨的卡方检验验证了衍生动画如何在不进行重大技术修复的前提下，通过评价框架的置换重塑玩家的情感认同，并总结了“拯救型跨媒介反哺”生效的四大核心机制。</p>
+                <p class="en-desc">Conducted as a course research project, this study explores the "Salvage-oriented Transmedia Feedback" mechanism. By analyzing 54,787 Steam reviews via chi-square tests, it investigates how the spin-off anime Edgerunners reconstructed player emotional attachment and reversed the game's reputation without major software patches.</p>
             </div>
 
             <div class="data-table-wrapper fade-in">
@@ -482,26 +459,56 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 Leslie Mu (母永林). Built with Premium Dark Mode.</p>
+        <p>&copy; 2026 Leslie (Mu Yonglin). Built with Premium Dark Mode & Swiper.js.</p>
     </footer>
 
+    <div id="lightbox" class="lightbox" onclick="closeLightbox()">
+        <span class="close-btn">&times;</span>
+        <img id="lightbox-img" src="" alt="Expanded View">
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
     <script>
+        /* 初始化 Swiper 堆叠卡片特效 */
+        var swiper = new Swiper(".mySwiper", {
+            effect: "cards",     
+            grabCursor: true,    
+            cardsEffect: {
+                perSlideOffset: 8, 
+                perSlideRotate: 2, 
+                slideShadows: true, 
+            },
+        });
+
+        /* Lightbox 点击放大逻辑 */
+        function openLightbox(imageSrc) {
+            const lightbox = document.getElementById('lightbox');
+            const lightboxImg = document.getElementById('lightbox-img');
+            lightboxImg.src = imageSrc;
+            lightbox.classList.add('active');
+            document.body.style.overflow = 'hidden'; 
+        }
+
+        function closeLightbox() {
+            const lightbox = document.getElementById('lightbox');
+            lightbox.classList.remove('active');
+            document.body.style.overflow = 'auto'; 
+        }
+
+        /* 滚动浮现监听 (Fade-in) */
         document.addEventListener("DOMContentLoaded", function() {
-            // 设置 Intersection Observer 监听元素进入视口
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('visible');
-                        // 可选：触发后取消监听，确保只播放一次
-                        // observer.unobserve(entry.target);
                     }
                 });
             }, {
-                threshold: 0.15, // 元素露出 15% 时触发
-                rootMargin: "0px 0px -50px 0px" // 提前一点点触发
+                threshold: 0.15, 
+                rootMargin: "0px 0px -50px 0px"
             });
 
-            // 获取所有带 fade-in 类的元素并绑定监听
             const elements = document.querySelectorAll('.fade-in');
             elements.forEach(el => observer.observe(el));
         });

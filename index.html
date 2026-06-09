@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mu Yonglin // Portfolio</title>
     
+    <!-- 引入 Swiper.js 核心交互库的 CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
 
     <style>
@@ -70,6 +71,7 @@
         .stagger-2 { animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; animation-delay: 0.3s; }
         .stagger-3 { animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; animation-delay: 0.5s; }
         .stagger-4 { animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; animation-delay: 0.7s; }
+        .stagger-5 { animation: slideUpFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards; opacity: 0; animation-delay: 0.9s; }
 
         /* 标题排版 */
         .section-title {
@@ -117,7 +119,7 @@
             font-size: 1.25rem;
             color: var(--text-primary);
             max-width: 600px;
-            margin: 0 auto 40px;
+            margin: 0 auto 30px;
             line-height: 1.8;
             font-weight: 300;
         }
@@ -137,27 +139,49 @@
             flex-wrap: wrap;
             font-size: 0.95rem;
             color: var(--text-secondary);
+            margin-bottom: 40px;
         }
 
-        /* 高级相册交互区 */
-        .swiper {
-            width: 320px; 
-            height: 480px; 
+        /* 简历下载按钮 (CTA) */
+        .hero-cta {
             margin-top: 20px;
         }
 
-        @media (min-width: 768px) {
-            .swiper { width: 400px; height: 600px; }
+        .btn-download {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background-color: var(--text-primary);
+            color: var(--bg-primary);
+            padding: 12px 28px;
+            border-radius: 30px;
+            text-decoration: none;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+        }
+
+        .btn-download:hover {
+            transform: translateY(-3px) scale(1.02);
+            box-shadow: 0 15px 25px rgba(255,255,255,0.2);
+            background-color: #fff;
+        }
+
+        /* 自然不规则堆叠交互相册 */
+        .swiper {
+            width: 100%; 
+            max-width: 500px;
+            height: 600px; 
+            margin-top: 20px;
+            padding: 20px; 
         }
 
         .swiper-slide {
             display: flex;
             align-items: center;
             justify-content: center;
-            border-radius: 16px;
-            overflow: hidden;
-            background-color: var(--bg-secondary);
-            box-shadow: 0 15px 35px rgba(0,0,0,0.8);
+            background-color: transparent; 
             cursor: grab;
         }
 
@@ -166,23 +190,30 @@
         }
 
         .swiper-slide img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            transition: transform 0.4s ease, filter 0.4s ease;
-            filter: brightness(0.85);
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain; 
+            border-radius: 8px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
+            filter: brightness(0.9) grayscale(10%);
         }
 
+        .swiper-slide:nth-child(3n+1) img { transform: rotate(-3deg); }
+        .swiper-slide:nth-child(3n+2) img { transform: rotate(2deg); }
+        .swiper-slide:nth-child(3n) img { transform: rotate(-1deg); }
+
         .swiper-slide:hover img {
-            transform: scale(1.05);
-            filter: brightness(1.1);
+            transform: scale(1.05) rotate(0deg) !important; 
+            filter: brightness(1.1) grayscale(0%);
+            z-index: 10;
         }
 
         .swiper-instruction {
             text-align: center;
             color: var(--text-secondary);
             font-size: 0.85rem;
-            margin-top: 30px;
+            margin-top: 20px;
             letter-spacing: 1px;
             animation: pulse 2s infinite;
         }
@@ -209,6 +240,7 @@
             opacity: 0;
             transition: opacity 0.3s ease;
             cursor: zoom-out; 
+            padding: 20px;
         }
 
         .lightbox.active {
@@ -217,10 +249,11 @@
         }
 
         .lightbox img {
-            max-width: 90%;
-            max-height: 90vh;
-            border-radius: 8px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            max-width: 95vw;
+            max-height: 95vh;
+            object-fit: contain; 
+            border-radius: 4px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
             transform: scale(0.95);
             transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
@@ -261,7 +294,7 @@
         .exp-content p.en-desc { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; }
 
         /* 链接交互设计 */
-        .links-group { display: flex; flex-wrap: wrap; gap: 12px; }
+        .links-group { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 15px; }
         .links-group a {
             display: inline-flex; align-items: center; font-size: 0.85rem; color: var(--text-primary);
             text-decoration: none; padding: 8px 16px; background: rgba(255, 255, 255, 0.05);
@@ -270,6 +303,16 @@
         .links-group a:hover {
             background: var(--text-primary); color: var(--bg-primary);
             transform: translateY(-2px); border-color: var(--text-primary);
+        }
+        
+        .links-group a.btn-doc {
+            background: rgba(41, 151, 255, 0.1);
+            color: var(--accent-color);
+            border-color: rgba(41, 151, 255, 0.3);
+        }
+        .links-group a.btn-doc:hover {
+            background: var(--accent-color);
+            color: #fff;
         }
 
         /* 数据表格 */
@@ -294,6 +337,7 @@
 
     <div class="container">
         
+        <!-- 首屏简介 -->
         <section class="hero">
             <h1 class="stagger-1">Mu Yonglin</h1>
             <div class="en-name stagger-2">Leslie</div>
@@ -304,33 +348,44 @@
             <div class="contact-info stagger-4">
                 <span>广州 • 贵阳 / Guangzhou • Guiyang</span>
                 <span>153 3951 8327</span>
-                <span>urxanxlin@gmail.com</span>
+                <span>urxanxlin@gmail.com / 845314622@qq.com</span>
+            </div>
+            
+            <div class="hero-cta stagger-5">
+                <a href="resume.pdf" class="btn-download" target="_blank">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                    获取完整简历 (PDF)
+                </a>
             </div>
         </section>
 
+        <!-- 自然不规则堆叠交互相册 -->
         <section id="portfolio" style="padding-top: 0; border-bottom: none;" class="fade-in">
             <div class="swiper mySwiper">
                 <div class="swiper-wrapper">
-                    <div class="swiper-slide"><img src="1.JPG" alt="Photo 1" onclick="openLightbox(this.src)"></div>
-                    <div class="swiper-slide"><img src="2.JPG" alt="Photo 2" onclick="openLightbox(this.src)"></div>
-                    <div class="swiper-slide"><img src="3.JPG" alt="Photo 3" onclick="openLightbox(this.src)"></div>
-                    <div class="swiper-slide"><img src="4.JPG" alt="Photo 4" onclick="openLightbox(this.src)"></div>
-                    <div class="swiper-slide"><img src="5.JPG" alt="Photo 5" onclick="openLightbox(this.src)"></div>
-                    <div class="swiper-slide"><img src="6.JPG" alt="Photo 6" onclick="openLightbox(this.src)"></div>
-                    <div class="swiper-slide"><img src="7.JPG" alt="Photo 7" onclick="openLightbox(this.src)"></div>
-                    <div class="swiper-slide"><img src="8.JPG" alt="Photo 8" onclick="openLightbox(this.src)"></div>
-                    <div class="swiper-slide"><img src="9.JPG" alt="Photo 9" onclick="openLightbox(this.src)"></div>
-                    <div class="swiper-slide"><img src="10.JPG" alt="Photo 10" onclick="openLightbox(this.src)"></div>
+                    <!-- 1-10 照片 -->
+                    <div class="swiper-slide"><img src="1.JPG" alt="Portfolio 1" onclick="openLightbox(this.src)"></div>
+                    <div class="swiper-slide"><img src="2.JPG" alt="Portfolio 2" onclick="openLightbox(this.src)"></div>
+                    <div class="swiper-slide"><img src="3.JPG" alt="Portfolio 3" onclick="openLightbox(this.src)"></div>
+                    <div class="swiper-slide"><img src="4.JPG" alt="Portfolio 4" onclick="openLightbox(this.src)"></div>
+                    <div class="swiper-slide"><img src="5.JPG" alt="Portfolio 5" onclick="openLightbox(this.src)"></div>
+                    <div class="swiper-slide"><img src="6.JPG" alt="Portfolio 6" onclick="openLightbox(this.src)"></div>
+                    <div class="swiper-slide"><img src="7.JPG" alt="Portfolio 7" onclick="openLightbox(this.src)"></div>
+                    <div class="swiper-slide"><img src="8.JPG" alt="Portfolio 8" onclick="openLightbox(this.src)"></div>
+                    <div class="swiper-slide"><img src="9.JPG" alt="Portfolio 9" onclick="openLightbox(this.src)"></div>
+                    <div class="swiper-slide"><img src="10.JPG" alt="Portfolio 10" onclick="openLightbox(this.src)"></div>
                 </div>
             </div>
-            <div class="swiper-instruction">← 滑动切换 / Swipe to explore · 单击放大 / Click to expand →</div>
+            <div class="swiper-instruction">← 滑动切换 / Swipe to explore · 单击原比例放大 / Click to expand →</div>
         </section>
 
+        <!-- 履历与经历 -->
         <section id="experience">
             <h2 class="section-title fade-in">教育与实践经历</h2>
             <div class="section-subtitle fade-in">Education & Experience</div>
             
             <div class="card-list">
+                <!-- 教育经历 1 -->
                 <div class="experience-card fade-in">
                     <div class="exp-time">
                         2023.09 - 至今
@@ -343,6 +398,7 @@
                     </div>
                 </div>
 
+                <!-- 教育经历 2 -->
                 <div class="experience-card fade-in">
                     <div class="exp-time">
                         2024.09 - 12
@@ -355,6 +411,7 @@
                     </div>
                 </div>
 
+                <!-- 实习经历 1 -->
                 <div class="experience-card fade-in">
                     <div class="exp-time">
                         2026.02
@@ -372,6 +429,7 @@
                     </div>
                 </div>
 
+                <!-- 实习经历 2 -->
                 <div class="experience-card fade-in">
                     <div class="exp-time">
                         2024 寒假
@@ -380,32 +438,39 @@
                     <div class="exp-content">
                         <h3>贵州省广播电视台</h3>
                         <div class="sub-title">新媒体运营实习生 / New Media Operation Intern</div>
-                        <p>参与策划《咖啡驾到》短视频集，负责部分脚本撰写、拍摄与后期包装，助力全矩阵浏览量破万。</p>
-                        <p class="en-desc">Co-planned the short video series "Coffee Arrival", taking part in scripting, filming, and editing, helping to reach >10k views.</p>
+                        <p>深度参与《咖啡驾到》新媒体短视频专栏的策划与制作，高效产出数十条高质量短视频。熟练完成网感抓取、脚本撰写与视觉包装，并协助跑通跨平台矩阵分发，有效提升了本地生活话题的年轻圈层互动率。</p>
+                        <p class="en-desc">Deeply involved in the planning and production of the "Coffee Arrival" short video series, efficiently producing dozens of high-quality videos. Skilfully handled trend-catching, scriptwriting, and visual packaging, while assisting in cross-platform distribution to effectively boost engagement among younger demographics.</p>
                         <div class="links-group">
                             <a href="https://www.gzstv.com/a/e0a509bf7e614c6099edaf106f97981c" target="_blank">电视台官网报道 ↗</a>
-                            <a href="https://v.douyin.com/d_qWWonEvPY/" target="_blank">新媒体矩阵视频 01 ↗</a>
-                            <a href="https://v.douyin.com/569kA5_e7m4/" target="_blank">新媒体矩阵视频 02 ↗</a>
-                            <a href="https://v.douyin.com/3t0U2AM062w/" target="_blank">新媒体矩阵视频 03 ↗</a>
-                            <a href="https://v.douyin.com/oPANH_rnS1k/" target="_blank">新媒体矩阵视频 04 ↗</a>
-                            <a href="https://v.douyin.com/kBh8ssEHI40/" target="_blank">新媒体矩阵视频 05 ↗</a>
+                            <a href="https://v.douyin.com/d_qWWonEvPY/" target="_blank">矩阵视频 01 ↗</a>
+                            <a href="https://v.douyin.com/569kA5_e7m4/" target="_blank">矩阵视频 02 ↗</a>
+                            <a href="https://v.douyin.com/3t0U2AM062w/" target="_blank">矩阵视频 03 ↗</a>
+                            <a href="https://v.douyin.com/oPANH_rnS1k/" target="_blank">矩阵视频 04 ↗</a>
+                            <a href="https://v.douyin.com/kBh8ssEHI40/" target="_blank">矩阵视频 05 ↗</a>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
 
+        <!-- 数据分析与研究 -->
         <section id="research">
             <h2 class="section-title fade-in">学术研究与数据分析</h2>
-            <div class="section-subtitle fade-in">Academic Research & Data Analysis</div>
+            <div class="section-subtitle fade-in">Academic Research & Data Insight</div>
             
             <div class="exp-content fade-in" style="margin-bottom: 30px;">
                 <h3>《游戏衍生动画对游戏本体的拯救型跨媒介反哺研究》</h3>
-                <div class="sub-title">课程论文 / Kaggle 评论挖掘 / 关键词匹配 / 卡方检验</div>
-                <p>本研究作为专业课程的学术探索，以《赛博朋克2077》及其衍生动画为案例，提取并清洗了 54,787 条 Steam 玩家中英文评论数据。研究通过严谨的卡方检验验证了衍生动画如何在不进行重大技术修复的前提下，通过评价框架的置换重塑玩家的情感认同，并总结了“拯救型跨媒介反哺”生效的四大核心机制。</p>
-                <p class="en-desc">Conducted as a course research project, this study explores the "Salvage-oriented Transmedia Feedback" mechanism. By analyzing 54,787 Steam reviews via chi-square tests, it investigates how the spin-off anime Edgerunners reconstructed player emotional attachment and reversed the game's reputation without major software patches.</p>
+                <div class="sub-title">课程论文 / Kaggle 数据爬取 / 关键词归因匹配 / 卡方检验 (Chi-square test)</div>
+                <p>作为专业课程的学术探索，提取并清洗了 54,787 条 Steam 玩家评论数据。<strong>该研究展现了极强的数据抓取与量化归因能力，能够通过统计学模型深度洞察用户情绪反馈，为新媒体内容策略的迭代提供坚实的数据底层支撑。</strong></p>
+                
+                <div class="links-group">
+                    <a href="essay.pdf" target="_blank" class="btn-doc">
+                        📄 查阅完整研究论文 (PDF)
+                    </a>
+                </div>
             </div>
 
+            <!-- 数据表 -->
             <div class="data-table-wrapper fade-in">
                 <table>
                     <thead>
@@ -462,11 +527,13 @@
         <p>&copy; 2026 Leslie (Mu Yonglin). Built with Premium Dark Mode & Swiper.js.</p>
     </footer>
 
+    <!-- 全屏灯箱 (Lightbox) HTML 结构 -->
     <div id="lightbox" class="lightbox" onclick="closeLightbox()">
         <span class="close-btn">&times;</span>
         <img id="lightbox-img" src="" alt="Expanded View">
     </div>
 
+    <!-- 引入 Swiper.js 交互脚本 -->
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
@@ -475,8 +542,8 @@
             effect: "cards",     
             grabCursor: true,    
             cardsEffect: {
-                perSlideOffset: 8, 
-                perSlideRotate: 2, 
+                perSlideOffset: 10,  
+                perSlideRotate: 4,   
                 slideShadows: true, 
             },
         });

@@ -11,12 +11,13 @@
     <style>
         /* 极致深色模式变量 */
         :root {
-            --bg-primary: #0a0a0c;
-            --bg-secondary: #141417;
+            --bg-primary: #050505; 
             --text-primary: #f5f5f7;
             --text-secondary: #a1a1a6;
             --accent-color: #2997ff; 
-            --border-color: #333336;
+            --accent-glow: rgba(41, 151, 255, 0.4);
+            --border-color: rgba(255, 255, 255, 0.08);
+            --glass-bg: rgba(20, 20, 23, 0.4); 
             --font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "Segoe UI", Roboto, sans-serif;
         }
 
@@ -33,6 +34,50 @@
             line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- 1. 电影级噪点肌理 (Film Noise Overlay) --- */
+        .noise-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none; /* 确保不阻挡任何鼠标点击事件 */
+            z-index: 9999;
+            opacity: 0.04; /* 极低的透明度，呈现高级的隐约颗粒感 */
+            background: url('data:image/svg+xml;utf8,%3Csvg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="noiseFilter"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.8" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23noiseFilter)"/%3E%3C/svg%3E');
+        }
+
+        /* 深层环境光晕 (搭配视差滚动产生纵深) */
+        .ambient-glow {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            overflow: hidden;
+            z-index: -1; 
+            pointer-events: none;
+            will-change: transform;
+        }
+        .glow-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(100px);
+            opacity: 0.4;
+            will-change: transform;
+        }
+        .glow-orb-1 {
+            width: 40vw; height: 40vw;
+            background: radial-gradient(circle, rgba(41,151,255,0.15) 0%, transparent 70%);
+            top: -10%; left: -10%;
+        }
+        .glow-orb-2 {
+            width: 50vw; height: 50vw;
+            background: radial-gradient(circle, rgba(138,43,226,0.1) 0%, transparent 70%);
+            bottom: -20%; right: -10%;
         }
 
         /* 布局与容器 */
@@ -40,6 +85,8 @@
             max-width: 1040px;
             margin: 0 auto;
             padding: 0 20px;
+            position: relative;
+            z-index: 1; 
         }
 
         section {
@@ -56,6 +103,7 @@
             opacity: 0;
             transform: translateY(40px);
             transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+            will-change: opacity, transform;
         }
         .fade-in.visible {
             opacity: 1;
@@ -91,23 +139,26 @@
             letter-spacing: 1px;
         }
 
-        /* 首屏简介 */
-        .hero {
+        /* 首屏简介外层包裹区 (用于视差滚动) */
+        .hero-wrapper {
             padding: 20vh 0 15vh;
             text-align: center;
+            will-change: transform, opacity;
         }
 
-        .hero h1 {
+        /* 标题流光质感 */
+        .hero-wrapper h1 {
             font-size: 4rem;
             font-weight: 700;
             letter-spacing: -1px;
             margin-bottom: 10px;
-            background: linear-gradient(135deg, #fff, #888);
+            background: linear-gradient(135deg, #ffffff 0%, #a1a1a6 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
+            text-shadow: 0 10px 30px rgba(255,255,255,0.1); 
         }
 
-        .hero .en-name {
+        .hero-wrapper .en-name {
             font-size: 1.5rem;
             color: var(--text-secondary);
             font-weight: 400;
@@ -142,7 +193,7 @@
             margin-bottom: 40px;
         }
 
-        /* 简历下载按钮 (CTA) */
+        /* CTA 按钮 */
         .hero-cta {
             margin-top: 20px;
         }
@@ -151,21 +202,38 @@
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            background-color: var(--text-primary);
-            color: var(--bg-primary);
-            padding: 12px 28px;
+            background-color: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            padding: 14px 32px;
             border-radius: 30px;
             text-decoration: none;
             font-weight: 600;
             font-size: 0.95rem;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            box-shadow: 0 10px 20px rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.1);
+            backdrop-filter: blur(10px);
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-download::before {
+            content: '';
+            position: absolute;
+            top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+            transition: all 0.6s ease;
         }
 
         .btn-download:hover {
             transform: translateY(-3px) scale(1.02);
-            box-shadow: 0 15px 25px rgba(255,255,255,0.2);
-            background-color: #fff;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-color: rgba(255,255,255,0.3);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5), 0 0 20px var(--accent-glow);
+        }
+
+        .btn-download:hover::before {
+            left: 100%;
         }
 
         /* 自然不规则堆叠交互相册 */
@@ -193,8 +261,8 @@
             max-width: 100%;
             max-height: 100%;
             object-fit: contain; 
-            border-radius: 8px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+            border-radius: 12px;
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
             transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1), filter 0.5s ease;
             filter: brightness(0.9) grayscale(10%);
         }
@@ -204,8 +272,9 @@
         .swiper-slide:nth-child(3n) img { transform: rotate(-1deg); }
 
         .swiper-slide:hover img {
-            transform: scale(1.05) rotate(0deg) !important; 
+            transform: scale(1.08) rotate(0deg) !important; 
             filter: brightness(1.1) grayscale(0%);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.9);
             z-index: 10;
         }
 
@@ -219,9 +288,9 @@
         }
 
         @keyframes pulse {
-            0% { opacity: 0.5; }
-            50% { opacity: 1; }
-            100% { opacity: 0.5; }
+            0% { opacity: 0.4; }
+            50% { opacity: 0.8; }
+            100% { opacity: 0.4; }
         }
 
         /* 全屏图片放大器 */
@@ -233,12 +302,12 @@
             left: 0;
             width: 100vw;
             height: 100vh;
-            background-color: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(10px); 
+            background-color: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(15px);
             align-items: center;
             justify-content: center;
             opacity: 0;
-            transition: opacity 0.3s ease;
+            transition: opacity 0.4s ease;
             cursor: zoom-out; 
             padding: 20px;
         }
@@ -252,10 +321,10 @@
             max-width: 95vw;
             max-height: 95vh;
             object-fit: contain; 
-            border-radius: 4px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.8);
-            transform: scale(0.95);
-            transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border-radius: 8px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8);
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
         }
 
         .lightbox.active img {
@@ -270,22 +339,48 @@
             font-size: 40px;
             font-weight: 300;
             cursor: pointer;
-            transition: color 0.2s;
+            transition: transform 0.3s, color 0.3s;
             z-index: 10000;
         }
 
         .close-btn:hover {
             color: var(--accent-color);
+            transform: scale(1.1) rotate(90deg);
         }
 
-        /* 履历与经历卡片 */
-        .card-list { display: flex; flex-direction: column; gap: 50px; }
-        .experience-card { display: grid; grid-template-columns: 1fr 3fr; gap: 20px; }
-        @media (max-width: 768px) { .experience-card { grid-template-columns: 1fr; } }
+        /* 毛玻璃 (Glassmorphism) 与悬浮发光卡片 */
+        .card-list { display: flex; flex-direction: column; gap: 40px; }
+        
+        .experience-card { 
+            display: grid; 
+            grid-template-columns: 1fr 3fr; 
+            gap: 20px; 
+            padding: 30px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px); 
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-5px);
+            background: rgba(30, 30, 35, 0.6);
+            border-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5), 0 0 30px rgba(255,255,255,0.03);
+        }
+
+        @media (max-width: 768px) { .experience-card { grid-template-columns: 1fr; padding: 20px; } }
         
         .exp-time {
             color: var(--text-secondary); font-size: 0.95rem; font-weight: 500;
             border-left: 2px solid var(--border-color); padding-left: 15px; height: fit-content;
+            transition: border-color 0.4s ease;
+        }
+        .experience-card:hover .exp-time {
+            border-left-color: var(--accent-color); 
         }
         .exp-time span { display: block; font-size: 0.85rem; margin-top: 4px; color: #666; }
         .exp-content h3 { font-size: 1.3rem; margin-bottom: 5px; color: var(--text-primary); }
@@ -293,52 +388,73 @@
         .exp-content p { margin-bottom: 10px; color: #d1d1d6; font-weight: 300; }
         .exp-content p.en-desc { color: var(--text-secondary); font-size: 0.95rem; margin-bottom: 20px; }
 
-        /* 链接交互设计 */
+        /* 链接交互设计 (微调文本) */
         .links-group { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 15px; }
         .links-group a {
             display: inline-flex; align-items: center; font-size: 0.85rem; color: var(--text-primary);
-            text-decoration: none; padding: 8px 16px; background: rgba(255, 255, 255, 0.05);
+            text-decoration: none; padding: 8px 16px; background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--border-color); border-radius: 20px; transition: all 0.3s ease;
         }
         .links-group a:hover {
-            background: var(--text-primary); color: var(--bg-primary);
-            transform: translateY(-2px); border-color: var(--text-primary);
+            background: rgba(255, 255, 255, 0.1); 
+            transform: translateY(-2px); 
+            border-color: rgba(255,255,255,0.2);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
         }
         
         .links-group a.btn-doc {
-            background: rgba(41, 151, 255, 0.1);
+            background: rgba(41, 151, 255, 0.08);
             color: var(--accent-color);
-            border-color: rgba(41, 151, 255, 0.3);
+            border-color: rgba(41, 151, 255, 0.2);
         }
         .links-group a.btn-doc:hover {
             background: var(--accent-color);
             color: #fff;
+            box-shadow: 0 5px 20px var(--accent-glow);
         }
 
-        /* 数据表格 */
+        /* 数据表格毛玻璃层 */
         .data-table-wrapper {
             overflow-x: auto; margin-top: 30px; border-radius: 12px;
-            border: 1px solid var(--border-color); background: var(--bg-secondary);
+            border: 1px solid var(--border-color); 
+            background: var(--glass-bg);
+            backdrop-filter: blur(12px);
+            transition: all 0.4s ease;
+        }
+        .data-table-wrapper:hover {
+            border-color: rgba(255,255,255,0.15);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
         }
         table { width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; }
-        th, td { padding: 18px 20px; border-bottom: 1px solid var(--border-color); }
+        th, td { padding: 18px 20px; border-bottom: 1px solid var(--border-color); transition: background 0.3s; }
         th { background-color: rgba(255,255,255,0.02); font-weight: 500; color: var(--text-secondary); font-size: 0.85rem; text-transform: uppercase; }
         tr:last-child td { border-bottom: none; }
-        tr:hover td { background-color: rgba(255,255,255,0.02); }
-        .highlight-data { font-weight: 600; color: var(--accent-color); }
+        tr:hover td { background-color: rgba(255,255,255,0.04); }
+        .highlight-data { font-weight: 600; color: var(--accent-color); text-shadow: 0 0 10px var(--accent-glow); }
 
         footer {
             text-align: center; padding: 60px 20px; color: #666;
-            font-size: 0.85rem; background-color: var(--bg-primary);
+            font-size: 0.85rem; 
+            border-top: 1px solid var(--border-color);
+            background: transparent;
         }
     </style>
 </head>
 <body>
 
+    <!-- 全局胶片噪点层 -->
+    <div class="noise-overlay"></div>
+
+    <!-- 底层环境光晕 (搭配视差) -->
+    <div class="ambient-glow">
+        <div class="glow-orb glow-orb-1"></div>
+        <div class="glow-orb glow-orb-2"></div>
+    </div>
+
     <div class="container">
         
-        <!-- 首屏简介 -->
-        <section class="hero">
+        <!-- 首屏简介外层包裹，绑定视差滚动 -->
+        <section class="hero-wrapper">
             <h1 class="stagger-1">Mu Yonglin</h1>
             <div class="en-name stagger-2">Leslie</div>
             <div class="slogan stagger-3">
@@ -422,9 +538,10 @@
                         <div class="sub-title">中国青年网校媒记者 / Media Reporter, China Youth Network</div>
                         <p>参与赛事现场的视听内容产出，并协助完成 EDG、AG 等头部战队的赛后深度专访与报道工作。</p>
                         <p class="en-desc">Participated in on-site audiovisual production and assisted with post-match interviews and reporting for top esports teams.</p>
+                        <!-- 极简重构链接文本 -->
                         <div class="links-group">
-                            <a href="https://s.cyol.com/articles/2026-02/11/content_jp722eH2.html?gid=3DlgPxr2" target="_blank">报道专访 01 ↗</a>
-                            <a href="https://s.cyol.com/articles/2026-02/09/content_5xBGvBSM.html" target="_blank">报道专访 02 ↗</a>
+                            <a href="https://s.cyol.com/articles/2026-02/11/content_jp722eH2.html?gid=3DlgPxr2" target="_blank">报道 01 ↗</a>
+                            <a href="https://s.cyol.com/articles/2026-02/09/content_5xBGvBSM.html" target="_blank">报道 02 ↗</a>
                         </div>
                     </div>
                 </div>
@@ -440,13 +557,14 @@
                         <div class="sub-title">新媒体运营实习生 / New Media Operation Intern</div>
                         <p>深度参与《咖啡驾到》新媒体短视频专栏的策划与制作，高效产出数十条高质量短视频。熟练完成网感抓取、脚本撰写与视觉包装，并协助跑通跨平台矩阵分发，有效提升了本地生活话题的年轻圈层互动率。</p>
                         <p class="en-desc">Deeply involved in the planning and production of the "Coffee Arrival" short video series, efficiently producing dozens of high-quality videos. Skilfully handled trend-catching, scriptwriting, and visual packaging, while assisting in cross-platform distribution to effectively boost engagement among younger demographics.</p>
+                        <!-- 极简重构链接文本 -->
                         <div class="links-group">
-                            <a href="https://www.gzstv.com/a/e0a509bf7e614c6099edaf106f97981c" target="_blank">电视台官网报道 ↗</a>
-                            <a href="https://v.douyin.com/d_qWWonEvPY/" target="_blank">矩阵视频 01 ↗</a>
-                            <a href="https://v.douyin.com/569kA5_e7m4/" target="_blank">矩阵视频 02 ↗</a>
-                            <a href="https://v.douyin.com/3t0U2AM062w/" target="_blank">矩阵视频 03 ↗</a>
-                            <a href="https://v.douyin.com/oPANH_rnS1k/" target="_blank">矩阵视频 04 ↗</a>
-                            <a href="https://v.douyin.com/kBh8ssEHI40/" target="_blank">矩阵视频 05 ↗</a>
+                            <a href="https://www.gzstv.com/a/e0a509bf7e614c6099edaf106f97981c" target="_blank">报道 ↗</a>
+                            <a href="https://v.douyin.com/d_qWWonEvPY/" target="_blank">视频 01 ↗</a>
+                            <a href="https://v.douyin.com/569kA5_e7m4/" target="_blank">视频 02 ↗</a>
+                            <a href="https://v.douyin.com/3t0U2AM062w/" target="_blank">视频 03 ↗</a>
+                            <a href="https://v.douyin.com/oPANH_rnS1k/" target="_blank">视频 04 ↗</a>
+                            <a href="https://v.douyin.com/kBh8ssEHI40/" target="_blank">视频 05 ↗</a>
                         </div>
                     </div>
                 </div>
@@ -454,19 +572,21 @@
         </section>
 
         <!-- 数据分析与研究 -->
-        <section id="research">
+        <section id="research" style="border-bottom: none;">
             <h2 class="section-title fade-in">学术研究与数据分析</h2>
             <div class="section-subtitle fade-in">Academic Research & Data Insight</div>
             
-            <div class="exp-content fade-in" style="margin-bottom: 30px;">
-                <h3>《游戏衍生动画对游戏本体的拯救型跨媒介反哺研究》</h3>
-                <div class="sub-title">课程论文 / Kaggle 数据爬取 / 关键词归因匹配 / 卡方检验 (Chi-square test)</div>
-                <p>作为专业课程的学术探索，提取并清洗了 54,787 条 Steam 玩家评论数据。<strong>该研究展现了极强的数据抓取与量化归因能力，能够通过统计学模型深度洞察用户情绪反馈，为新媒体内容策略的迭代提供坚实的数据底层支撑。</strong></p>
-                
-                <div class="links-group">
-                    <a href="essay.pdf" target="_blank" class="btn-doc">
-                        📄 查阅完整研究论文 (PDF)
-                    </a>
+            <div class="experience-card fade-in" style="margin-bottom: 30px;">
+                <div class="exp-content" style="grid-column: 1 / -1;">
+                    <h3>《游戏衍生动画对游戏本体的拯救型跨媒介反哺研究》</h3>
+                    <div class="sub-title">课程论文 / Kaggle 数据爬取 / 关键词归因匹配 / 卡方检验 (Chi-square test)</div>
+                    <p>作为专业课程的学术探索，提取并清洗了 54,787 条 Steam 玩家评论数据。<strong>该研究展现了极强的数据抓取与量化归因能力，能够通过统计学模型深度洞察用户情绪反馈，为新媒体内容策略的迭代提供坚实的数据底层支撑。</strong></p>
+                    
+                    <div class="links-group">
+                        <a href="essay.pdf" target="_blank" class="btn-doc">
+                            📄 查阅完整研究论文 (PDF)
+                        </a>
+                    </div>
                 </div>
             </div>
 
@@ -524,10 +644,10 @@
     </div>
 
     <footer>
-        <p>&copy; 2026 Leslie (Mu Yonglin). Built with Premium Dark Mode & Swiper.js.</p>
+        <p>&copy; 2026 Leslie (Mu Yonglin). Built with Glassmorphism, Noise Layer & Parallax.</p>
     </footer>
 
-    <!-- 全屏灯箱 (Lightbox) HTML 结构 -->
+    <!-- 全屏灯箱 (Lightbox) -->
     <div id="lightbox" class="lightbox" onclick="closeLightbox()">
         <span class="close-btn">&times;</span>
         <img id="lightbox-img" src="" alt="Expanded View">
@@ -537,18 +657,46 @@
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
     <script>
-        /* 初始化 Swiper 堆叠卡片特效 */
+        /* 1. 视差滚动逻辑 (Parallax Effect) */
+        let ticking = false;
+        function applyParallax(scrollPos) {
+            const orb1 = document.querySelector('.glow-orb-1');
+            const orb2 = document.querySelector('.glow-orb-2');
+            const hero = document.querySelector('.hero-wrapper');
+            
+            // 光晕缓慢反向移动产生空间感
+            if (orb1) orb1.style.transform = `translateY(${scrollPos * 0.25}px)`;
+            if (orb2) orb2.style.transform = `translateY(${scrollPos * 0.15}px)`;
+            
+            // 首屏文字更快速地向上移动并逐渐透明
+            if (hero) {
+                hero.style.transform = `translateY(${scrollPos * 0.35}px)`;
+                hero.style.opacity = Math.max(1 - (scrollPos / 600), 0);
+            }
+        }
+
+        window.addEventListener('scroll', function() {
+            if (!ticking) {
+                window.requestAnimationFrame(function() {
+                    applyParallax(window.scrollY);
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        });
+
+        /* 2. 初始化 Swiper 堆叠卡片特效 */
         var swiper = new Swiper(".mySwiper", {
             effect: "cards",     
             grabCursor: true,    
             cardsEffect: {
-                perSlideOffset: 10,  
+                perSlideOffset: 12,  
                 perSlideRotate: 4,   
-                slideShadows: true, 
+                slideShadows: false, 
             },
         });
 
-        /* Lightbox 点击放大逻辑 */
+        /* 3. Lightbox 点击放大逻辑 */
         function openLightbox(imageSrc) {
             const lightbox = document.getElementById('lightbox');
             const lightboxImg = document.getElementById('lightbox-img');
@@ -563,7 +711,7 @@
             document.body.style.overflow = 'auto'; 
         }
 
-        /* 滚动浮现监听 (Fade-in) */
+        /* 4. 滚动浮现监听 (Fade-in) */
         document.addEventListener("DOMContentLoaded", function() {
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
@@ -572,7 +720,7 @@
                     }
                 });
             }, {
-                threshold: 0.15, 
+                threshold: 0.1, 
                 rootMargin: "0px 0px -50px 0px"
             });
 

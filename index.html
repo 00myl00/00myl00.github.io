@@ -72,7 +72,13 @@ a {
   align-items: center;
   justify-content: space-between;
   width: min(var(--max), calc(100% - 40px));
-  padding: 22px 0;
+  margin-top: 12px;
+  padding: 12px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 999px;
+  background: rgba(5, 7, 11, 0.58);
+  box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
+  backdrop-filter: blur(22px) saturate(1.25);
   transform: translateX(-50%);
 }
 
@@ -113,9 +119,17 @@ a {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-end;
-  gap: 18px;
+  gap: 6px;
   color: rgba(243, 247, 251, 0.72);
   font-size: 0.82rem;
+}
+
+.nav a {
+  padding: 8px 10px;
+  border-radius: 999px;
+  transition:
+    color 180ms ease,
+    background 180ms ease;
 }
 
 .nav a:hover,
@@ -123,6 +137,10 @@ a {
 .links a:hover,
 .hero-actions a:hover {
   color: var(--cyan);
+}
+
+.nav a:hover {
+  background: rgba(255, 255, 255, 0.07);
 }
 
 main {
@@ -511,7 +529,7 @@ h2 {
   min-height: 560px;
   margin: 0 auto;
   perspective: 1400px;
-  touch-action: pan-y;
+  touch-action: pan-y pinch-zoom;
   user-select: none;
   cursor: grab;
 }
@@ -533,11 +551,24 @@ h2 {
   box-shadow: 0 30px 80px rgba(0, 0, 0, 0.42);
   cursor: pointer;
   transform-origin: center 90%;
+  opacity: var(--card-opacity, 0.58);
+  filter: saturate(var(--card-saturation, 0.72)) brightness(var(--card-brightness, 0.72));
+  transform: translateX(-50%) translateY(40px) scale(0.9);
   transition:
-    transform 420ms cubic-bezier(0.16, 1, 0.3, 1),
-    opacity 260ms ease,
-    filter 260ms ease,
-    border-color 260ms ease;
+    transform 520ms cubic-bezier(0.16, 1, 0.3, 1),
+    opacity 320ms ease,
+    filter 320ms ease,
+    border-color 260ms ease,
+    box-shadow 260ms ease;
+  will-change: transform, opacity;
+}
+
+.stack-gallery.is-dragging .stack-card {
+  transition:
+    opacity 160ms ease,
+    filter 160ms ease,
+    border-color 160ms ease,
+    box-shadow 160ms ease;
 }
 
 .stack-card img {
@@ -548,56 +579,11 @@ h2 {
   background: #080c12;
 }
 
-.stack-card:nth-child(1) {
-  transform: translateX(-50%) rotate(-6deg) translateY(12px);
-}
-
-.stack-card:nth-child(2) {
-  transform: translateX(-48%) rotate(5deg) translate(28px, 32px);
-}
-
-.stack-card:nth-child(3) {
-  transform: translateX(-52%) rotate(-2deg) translate(-34px, 54px);
-}
-
-.stack-card:nth-child(4) {
-  transform: translateX(-48%) rotate(8deg) translate(46px, 78px);
-}
-
-.stack-card:nth-child(5) {
-  transform: translateX(-54%) rotate(-9deg) translate(-42px, 98px);
-}
-
-.stack-card:nth-child(6) {
-  transform: translateX(-50%) rotate(2deg) translate(6px, 122px);
-}
-
-.stack-card:nth-child(7) {
-  transform: translateX(-52%) rotate(-4deg) translate(-18px, 142px);
-}
-
-.stack-card:nth-child(8) {
-  transform: translateX(-48%) rotate(6deg) translate(34px, 158px);
-}
-
-.stack-card:nth-child(9) {
-  transform: translateX(-54%) rotate(-7deg) translate(-44px, 172px);
-}
-
-.stack-card:nth-child(10) {
-  transform: translateX(-50%) rotate(3deg) translate(14px, 188px);
-}
-
-.stack-card:not(.active) {
-  opacity: 0.58;
-  filter: saturate(0.7) brightness(0.72);
-}
-
 .stack-card.active {
-  z-index: 6;
   border-color: rgba(120, 231, 255, 0.36);
-  transform: translateX(-50%) rotate(0deg) translateY(0) scale(1.04);
-  filter: saturate(1.04) brightness(1);
+  box-shadow:
+    0 34px 90px rgba(0, 0, 0, 0.48),
+    0 0 34px rgba(120, 231, 255, 0.08);
 }
 
 .stack-gallery:hover .stack-card:not(.active) {
@@ -780,7 +766,9 @@ h2 {
 
   .site-header {
     align-items: flex-start;
-    gap: 18px;
+    gap: 12px;
+    border-radius: 18px;
+    padding: 12px;
   }
 
   .nav {
@@ -1089,14 +1077,74 @@ const lightboxClose = document.querySelector(".lightbox-close");
 
 const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 let activeGalleryIndex = 0;
-let swipeStartX = 0;
-let swipeStartY = 0;
-let swipeMoved = false;
+let dragStartX = 0;
+let dragStartY = 0;
+let dragX = 0;
+let isDraggingGallery = false;
+let didDragGallery = false;
 
 function updateProgress() {
   const scrollable = document.documentElement.scrollHeight - window.innerHeight;
   const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
   progressBar.style.width = `${Math.min(progress * 100, 100)}%`;
+}
+
+function getRelativeIndex(index) {
+  const total = stackCards.length;
+  let diff = index - activeGalleryIndex;
+  if (diff > total / 2) diff -= total;
+  if (diff < -total / 2) diff += total;
+  return diff;
+}
+
+function getCardPose(diff, dragOffset = 0) {
+  const direction = Math.sign(diff) || 1;
+  const distance = Math.abs(diff);
+  const dragInfluence = Math.max(0.18, 1 - distance * 0.18);
+  const x = diff * 74 + dragOffset * dragInfluence;
+  const y = distance * 32 + Math.min(distance, 4) * 8;
+  const rotate = diff * 4.2 + dragOffset / 34;
+  const scale = Math.max(0.72, 1.04 - distance * 0.075);
+  const opacity = Math.max(0.18, 1 - distance * 0.16);
+  const saturation = Math.max(0.62, 1.04 - distance * 0.08);
+  const brightness = Math.max(0.58, 1 - distance * 0.09);
+
+  if (distance > 4) {
+    return {
+      x: direction * 230 + dragOffset * 0.08,
+      y: 180 + distance * 4,
+      rotate: direction * 12,
+      scale: 0.7,
+      opacity: 0,
+      saturation: 0.6,
+      brightness: 0.52,
+    };
+  }
+
+  return { x, y, rotate, scale, opacity, saturation, brightness };
+}
+
+function renderGallery(dragOffset = 0) {
+  if (!stackCards.length) return;
+
+  stackCards.forEach((card, index) => {
+    const diff = getRelativeIndex(index);
+    const pose = getCardPose(diff, dragOffset);
+
+    card.classList.toggle("active", diff === 0);
+    card.style.zIndex = String(100 - Math.abs(diff));
+    card.style.transform = `translateX(calc(-50% + ${pose.x}px)) translateY(${pose.y}px) rotate(${pose.rotate}deg) scale(${pose.scale})`;
+    card.style.setProperty("--card-opacity", pose.opacity.toFixed(2));
+    card.style.setProperty("--card-saturation", pose.saturation.toFixed(2));
+    card.style.setProperty("--card-brightness", pose.brightness.toFixed(2));
+  });
+}
+
+function setActiveGallery(index) {
+  if (!stackCards.length) return;
+  activeGalleryIndex = (index + stackCards.length) % stackCards.length;
+  dragX = 0;
+  renderGallery();
 }
 
 window.addEventListener("scroll", updateProgress, { passive: true });
@@ -1148,21 +1196,12 @@ copyLinks.forEach((link) => {
     event.preventDefault();
     await navigator.clipboard.writeText(value);
     const original = link.textContent;
-    link.textContent = "已复制邮箱";
+    link.textContent = "\u5df2\u590d\u5236\u90ae\u7bb1";
     window.setTimeout(() => {
       link.textContent = original;
     }, 1200);
   });
 });
-
-function setActiveGallery(index) {
-  if (!stackCards.length) return;
-  activeGalleryIndex = (index + stackCards.length) % stackCards.length;
-  stackCards.forEach((card, cardIndex) => {
-    card.classList.toggle("active", cardIndex === activeGalleryIndex);
-    card.style.zIndex = cardIndex === activeGalleryIndex ? stackCards.length + 1 : stackCards.length - cardIndex;
-  });
-}
 
 function openGalleryImage() {
   const activeCard = stackCards[activeGalleryIndex];
@@ -1185,7 +1224,7 @@ function closeGalleryImage() {
 
 stackCards.forEach((card, index) => {
   card.addEventListener("click", () => {
-    if (swipeMoved) return;
+    if (didDragGallery) return;
     if (index === activeGalleryIndex) {
       openGalleryImage();
       return;
@@ -1195,30 +1234,48 @@ stackCards.forEach((card, index) => {
 });
 
 stackGallery?.addEventListener("pointerdown", (event) => {
-  swipeStartX = event.clientX;
-  swipeStartY = event.clientY;
-  swipeMoved = false;
+  if (event.button !== undefined && event.button !== 0) return;
+  dragStartX = event.clientX;
+  dragStartY = event.clientY;
+  dragX = 0;
+  isDraggingGallery = true;
+  didDragGallery = false;
   stackGallery.classList.add("is-dragging");
   stackGallery.setPointerCapture?.(event.pointerId);
 });
 
-stackGallery?.addEventListener("pointerup", (event) => {
-  const deltaX = event.clientX - swipeStartX;
-  const deltaY = event.clientY - swipeStartY;
-  stackGallery.classList.remove("is-dragging");
+stackGallery?.addEventListener("pointermove", (event) => {
+  if (!isDraggingGallery) return;
 
-  if (Math.abs(deltaX) > 44 && Math.abs(deltaX) > Math.abs(deltaY) * 1.2) {
-    swipeMoved = true;
-    setActiveGallery(activeGalleryIndex + (deltaX < 0 ? 1 : -1));
-    window.setTimeout(() => {
-      swipeMoved = false;
-    }, 120);
+  const nextDragX = event.clientX - dragStartX;
+  const deltaY = event.clientY - dragStartY;
+  if (Math.abs(nextDragX) < 4 && Math.abs(deltaY) < 4) return;
+
+  didDragGallery = true;
+  dragX = Math.max(-170, Math.min(170, nextDragX));
+  renderGallery(dragX);
+});
+
+function finishGalleryDrag() {
+  if (!isDraggingGallery) return;
+  isDraggingGallery = false;
+  stackGallery?.classList.remove("is-dragging");
+
+  if (Math.abs(dragX) > 64) {
+    setActiveGallery(activeGalleryIndex + (dragX < 0 ? 1 : -1));
+  } else {
+    renderGallery();
   }
-});
 
-stackGallery?.addEventListener("pointercancel", () => {
-  stackGallery.classList.remove("is-dragging");
-});
+  dragX = 0;
+  window.setTimeout(() => {
+    didDragGallery = false;
+  }, 140);
+}
+
+stackGallery?.addEventListener("pointerup", finishGalleryDrag);
+stackGallery?.addEventListener("pointercancel", finishGalleryDrag);
+stackGallery?.addEventListener("lostpointercapture", finishGalleryDrag);
 
 lightbox?.addEventListener("click", (event) => {
   if (event.target === lightbox) closeGalleryImage();
@@ -1232,7 +1289,7 @@ window.addEventListener("keydown", (event) => {
   if (event.key === "ArrowRight") setActiveGallery(activeGalleryIndex + 1);
 });
 
-setActiveGallery(0);
+renderGallery();
 
     </script>
   </body>

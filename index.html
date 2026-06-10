@@ -80,6 +80,15 @@ a {
   box-shadow: 0 18px 60px rgba(0, 0, 0, 0.28);
   backdrop-filter: blur(22px) saturate(1.25);
   transform: translateX(-50%);
+  transition:
+    transform 260ms ease,
+    opacity 260ms ease,
+    background 180ms ease;
+}
+
+.site-header.is-hidden {
+  opacity: 0;
+  transform: translate(-50%, -120%);
 }
 
 .scroll-progress {
@@ -284,6 +293,10 @@ h1 {
 .section {
   padding: 92px 0;
   border-top: 1px solid var(--line);
+}
+
+.gallery-section {
+  padding-top: 58px;
 }
 
 .section-heading {
@@ -527,7 +540,7 @@ h2 {
   position: relative;
   width: min(100%, 900px);
   min-height: 520px;
-  margin: 0 auto;
+  margin: -18px auto 0;
   perspective: 1400px;
   touch-action: pan-y;
   user-select: none;
@@ -773,6 +786,11 @@ h2 {
     padding: 12px;
   }
 
+  .site-header.is-hidden {
+    opacity: 0;
+    transform: translate(-50%, -140%);
+  }
+
   .nav {
     gap: 10px 14px;
     font-size: 0.8rem;
@@ -796,6 +814,10 @@ h2 {
     padding: 68px 0;
   }
 
+  .gallery-section {
+    padding-top: 68px;
+  }
+
   .section-heading,
   .site-footer {
     display: block;
@@ -809,6 +831,7 @@ h2 {
 
   .stack-gallery {
     min-height: 430px;
+    margin-top: 0;
   }
 
   .stack-card {
@@ -1067,6 +1090,7 @@ h2 {
 
     <script>
 const progressBar = document.querySelector(".scroll-progress");
+const siteHeader = document.querySelector(".site-header");
 const cursorGlow = document.querySelector(".cursor-glow");
 const revealItems = document.querySelectorAll(".reveal");
 const interactiveCards = document.querySelectorAll(".interactive-card");
@@ -1084,6 +1108,7 @@ let dragStartY = 0;
 let dragX = 0;
 let isDraggingGallery = false;
 let didDragGallery = false;
+let lastScrollY = window.scrollY;
 
 const galleryScatter = [
   { x: -12, y: 0, r: -5.8 },
@@ -1102,6 +1127,25 @@ function updateProgress() {
   const scrollable = document.documentElement.scrollHeight - window.innerHeight;
   const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
   progressBar.style.width = `${Math.min(progress * 100, 100)}%`;
+}
+
+function updateMobileHeader() {
+  if (!siteHeader) return;
+
+  const currentScrollY = window.scrollY;
+  const isMobile = window.matchMedia("(max-width: 620px)").matches;
+  const scrollingDown = currentScrollY > lastScrollY + 8;
+  const scrollingUp = currentScrollY < lastScrollY - 8;
+
+  if (!isMobile || currentScrollY < 80) {
+    siteHeader.classList.remove("is-hidden");
+  } else if (scrollingDown) {
+    siteHeader.classList.add("is-hidden");
+  } else if (scrollingUp) {
+    siteHeader.classList.remove("is-hidden");
+  }
+
+  lastScrollY = currentScrollY;
 }
 
 function getRelativeIndex(index) {
@@ -1163,8 +1207,16 @@ function setActiveGallery(index) {
   renderGallery();
 }
 
-window.addEventListener("scroll", updateProgress, { passive: true });
+window.addEventListener(
+  "scroll",
+  () => {
+    updateProgress();
+    updateMobileHeader();
+  },
+  { passive: true },
+);
 updateProgress();
+updateMobileHeader();
 
 if (!reduceMotion) {
   window.addEventListener(

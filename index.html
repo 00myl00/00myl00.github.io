@@ -526,10 +526,10 @@ h2 {
 .stack-gallery {
   position: relative;
   width: min(100%, 900px);
-  min-height: 560px;
+  min-height: 520px;
   margin: 0 auto;
   perspective: 1400px;
-  touch-action: pan-y pinch-zoom;
+  touch-action: pan-y;
   user-select: none;
   cursor: grab;
 }
@@ -540,15 +540,15 @@ h2 {
 
 .stack-card {
   position: absolute;
-  inset: 24px auto auto 50%;
-  width: min(74%, 390px);
-  aspect-ratio: 4 / 5;
+  top: 18px;
+  left: 50%;
+  width: min(76vw, 440px);
   padding: 0;
-  overflow: hidden;
+  overflow: visible;
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 8px;
-  background: #111720;
-  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.42);
+  background: transparent;
+  box-shadow: 0 28px 76px rgba(0, 0, 0, 0.45);
   cursor: pointer;
   transform-origin: center 90%;
   opacity: var(--card-opacity, 0.58);
@@ -574,9 +574,11 @@ h2 {
 .stack-card img {
   display: block;
   width: 100%;
-  height: 100%;
-  object-fit: contain;
-  background: #080c12;
+  height: auto;
+  border-radius: 8px;
+  pointer-events: none;
+  user-select: none;
+  -webkit-user-drag: none;
 }
 
 .stack-card.active {
@@ -744,7 +746,7 @@ h2 {
   }
 
   .stack-gallery {
-    min-height: 520px;
+    min-height: 500px;
   }
 
   .research-hero {
@@ -806,11 +808,11 @@ h2 {
   }
 
   .stack-gallery {
-    min-height: 440px;
+    min-height: 430px;
   }
 
   .stack-card {
-    width: min(78%, 330px);
+    width: min(84vw, 340px);
   }
 
   .metrics-grid,
@@ -1083,6 +1085,19 @@ let dragX = 0;
 let isDraggingGallery = false;
 let didDragGallery = false;
 
+const galleryScatter = [
+  { x: -12, y: 0, r: -5.8 },
+  { x: 34, y: 18, r: 6.2 },
+  { x: -42, y: 34, r: -2.8 },
+  { x: 54, y: 50, r: 7.4 },
+  { x: -58, y: 66, r: -7.8 },
+  { x: 16, y: 82, r: 3.8 },
+  { x: -26, y: 96, r: -4.6 },
+  { x: 66, y: 108, r: 5.8 },
+  { x: -70, y: 120, r: -8.4 },
+  { x: 40, y: 132, r: 2.6 },
+];
+
 function updateProgress() {
   const scrollable = document.documentElement.scrollHeight - window.innerHeight;
   const progress = scrollable > 0 ? window.scrollY / scrollable : 0;
@@ -1098,23 +1113,24 @@ function getRelativeIndex(index) {
 }
 
 function getCardPose(diff, dragOffset = 0) {
+  const scatter = galleryScatter[(activeGalleryIndex + diff + galleryScatter.length) % galleryScatter.length];
   const direction = Math.sign(diff) || 1;
   const distance = Math.abs(diff);
-  const dragInfluence = Math.max(0.18, 1 - distance * 0.18);
-  const x = diff * 74 + dragOffset * dragInfluence;
-  const y = distance * 32 + Math.min(distance, 4) * 8;
-  const rotate = diff * 4.2 + dragOffset / 34;
-  const scale = Math.max(0.72, 1.04 - distance * 0.075);
-  const opacity = Math.max(0.18, 1 - distance * 0.16);
-  const saturation = Math.max(0.62, 1.04 - distance * 0.08);
-  const brightness = Math.max(0.58, 1 - distance * 0.09);
+  const dragInfluence = Math.max(0.14, 1 - distance * 0.2);
+  const x = diff * 44 + scatter.x + dragOffset * dragInfluence;
+  const y = distance * 18 + scatter.y;
+  const rotate = scatter.r + diff * 1.5 + dragOffset / 46;
+  const scale = Math.max(0.76, 1.02 - distance * 0.045);
+  const opacity = Math.max(0.24, 1 - distance * 0.12);
+  const saturation = Math.max(0.72, 1.04 - distance * 0.055);
+  const brightness = Math.max(0.66, 1 - distance * 0.06);
 
   if (distance > 4) {
     return {
-      x: direction * 230 + dragOffset * 0.08,
-      y: 180 + distance * 4,
-      rotate: direction * 12,
-      scale: 0.7,
+      x: direction * 180 + scatter.x * 0.22 + dragOffset * 0.08,
+      y: 160 + distance * 6,
+      rotate: direction * 9 + scatter.r * 0.25,
+      scale: 0.72,
       opacity: 0,
       saturation: 0.6,
       brightness: 0.52,
@@ -1223,6 +1239,8 @@ function closeGalleryImage() {
 }
 
 stackCards.forEach((card, index) => {
+  card.querySelector("img")?.setAttribute("draggable", "false");
+
   card.addEventListener("click", () => {
     if (didDragGallery) return;
     if (index === activeGalleryIndex) {
@@ -1233,28 +1251,27 @@ stackCards.forEach((card, index) => {
   });
 });
 
-stackGallery?.addEventListener("pointerdown", (event) => {
-  if (event.button !== undefined && event.button !== 0) return;
-  dragStartX = event.clientX;
-  dragStartY = event.clientY;
+function startGalleryDrag(clientX, clientY) {
+  dragStartX = clientX;
+  dragStartY = clientY;
   dragX = 0;
   isDraggingGallery = true;
   didDragGallery = false;
   stackGallery.classList.add("is-dragging");
-  stackGallery.setPointerCapture?.(event.pointerId);
-});
+}
 
-stackGallery?.addEventListener("pointermove", (event) => {
+function moveGalleryDrag(clientX, clientY, event) {
   if (!isDraggingGallery) return;
 
-  const nextDragX = event.clientX - dragStartX;
-  const deltaY = event.clientY - dragStartY;
+  event?.preventDefault();
+  const nextDragX = clientX - dragStartX;
+  const deltaY = clientY - dragStartY;
   if (Math.abs(nextDragX) < 4 && Math.abs(deltaY) < 4) return;
 
   didDragGallery = true;
   dragX = Math.max(-170, Math.min(170, nextDragX));
   renderGallery(dragX);
-});
+}
 
 function finishGalleryDrag() {
   if (!isDraggingGallery) return;
@@ -1273,9 +1290,65 @@ function finishGalleryDrag() {
   }, 140);
 }
 
-stackGallery?.addEventListener("pointerup", finishGalleryDrag);
-stackGallery?.addEventListener("pointercancel", finishGalleryDrag);
-stackGallery?.addEventListener("lostpointercapture", finishGalleryDrag);
+if ("PointerEvent" in window) {
+  stackGallery?.addEventListener("pointerdown", (event) => {
+    if (event.button !== undefined && event.button !== 0) return;
+    event.preventDefault();
+    startGalleryDrag(event.clientX, event.clientY);
+  });
+
+  window.addEventListener(
+    "pointermove",
+    (event) => {
+      moveGalleryDrag(event.clientX, event.clientY, event);
+    },
+    { passive: false },
+  );
+
+  window.addEventListener("pointerup", finishGalleryDrag);
+  window.addEventListener("pointercancel", finishGalleryDrag);
+} else {
+  stackGallery?.addEventListener("mousedown", (event) => {
+    if (event.button !== 0) return;
+    event.preventDefault();
+    startGalleryDrag(event.clientX, event.clientY);
+  });
+
+  window.addEventListener(
+    "mousemove",
+    (event) => {
+      moveGalleryDrag(event.clientX, event.clientY, event);
+    },
+    { passive: false },
+  );
+
+  window.addEventListener("mouseup", finishGalleryDrag);
+
+  stackGallery?.addEventListener(
+    "touchstart",
+    (event) => {
+      const touch = event.touches[0];
+      if (!touch) return;
+      startGalleryDrag(touch.clientX, touch.clientY);
+    },
+    { passive: true },
+  );
+
+  window.addEventListener(
+    "touchmove",
+    (event) => {
+      const touch = event.touches[0];
+      if (!touch) return;
+      moveGalleryDrag(touch.clientX, touch.clientY, event);
+    },
+    { passive: false },
+  );
+
+  window.addEventListener("touchend", finishGalleryDrag);
+  window.addEventListener("touchcancel", finishGalleryDrag);
+}
+
+window.addEventListener("blur", finishGalleryDrag);
 
 lightbox?.addEventListener("click", (event) => {
   if (event.target === lightbox) closeGalleryImage();

@@ -1168,6 +1168,26 @@ h2 { font-size: clamp(1.85rem, 4vw, 3.1rem); line-height: 1.08; letter-spacing: 
     padding: 54px 12px 24px;
   }
 }
+.experience-grid .featured-film {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: minmax(0, 1.22fr) minmax(0, 1fr);
+  align-items: center;
+}
+
+.featured-film video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 2 / 1;
+  object-fit: contain;
+  background: #050709;
+}
+
+@media (max-width: 680px) {
+  .experience-grid .featured-film {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
     </style>
   </head>
   <body>
@@ -1200,6 +1220,18 @@ h2 { font-size: clamp(1.85rem, 4vw, 3.1rem); line-height: 1.08; letter-spacing: 
       <section class="profile section" id="works" aria-labelledby="works-title">
         <h2 id="works-title">Selected Works</h2>
         <div class="profile-grid experience-grid">
+          <article class="experience-item featured-film" id="she">
+            <video controls playsinline preload="none" aria-labelledby="she-title" poster="assets/videos/course-film-03.jpg">
+              <source src="assets/videos/course-film-03.mp4" type="video/mp4" />
+              <a href="assets/videos/course-film-03.mp4">Watch She</a>
+            </video>
+            <div class="project-body">
+              <span>Independent course film · 3:12</span>
+              <h3 id="she-title">She</h3>
+              <p>I wrote, filmed and edited this stream-of-consciousness short, using a clear emotional arc to connect its images.</p>
+              <p>Filming a mirror shattering was difficult to stage, so I generated that shot in Runway. It was my first experiment with generative AI in filmmaking.</p>
+            </div>
+          </article>
           <article class="experience-item">
             <a class="project-media coffee-cover" href="https://v.douyin.com/irfuwdoJfNE/" target="_blank" rel="noreferrer" aria-label="Watch Coffee Arrives on Douyin">
               <div class="featured-video-still">
@@ -1244,7 +1276,7 @@ h2 { font-size: clamp(1.85rem, 4vw, 3.1rem); line-height: 1.08; letter-spacing: 
             <div class="project-body">
               <span>Generative AI video · 2026</span>
               <h3>Generative AI Films for NIO Power</h3>
-              <p>I used generative AI to make four short videos about EV charging and battery swapping for NIO Power’s regional social channels. I also worked on live-action production during the internship.</p>
+              <p>I used Seedance to make four short videos about EV charging and battery swapping for NIO Power’s regional social channels. I tested and revised generated footage to follow NIO Power’s visual identity guidelines, working within the model’s restrictions on generating protected brand elements. I also worked on live-action production during the internship.</p>
               <p class="project-platform">Watch on Douyin</p>
               <ul class="nio-films" aria-label="Watch the four films on Douyin">
                 <li><a href="https://v.douyin.com/P53yE83yDtY/" target="_blank" rel="noreferrer">Charged Before the Song Ends ↗</a></li>
@@ -1257,7 +1289,7 @@ h2 { font-size: clamp(1.85rem, 4vw, 3.1rem); line-height: 1.08; letter-spacing: 
         </div>
         <div class="coursework" aria-labelledby="coursework-title">
           <h3 id="coursework-title">Coursework</h3>
-          <p>I wrote, filmed and edited all three films independently.</p>
+          <p>I also wrote, filmed and edited these two course films independently.</p>
           <div class="coursework-grid">
           <figure>
             <figcaption id="coursework-01">Course Film 01 · 0:59</figcaption>
@@ -1271,13 +1303,6 @@ h2 { font-size: clamp(1.85rem, 4vw, 3.1rem); line-height: 1.08; letter-spacing: 
             <video controls playsinline preload="none" aria-labelledby="coursework-02" poster="assets/videos/course-film-02.jpg">
               <source src="assets/videos/course-film-02.mp4" type="video/mp4" />
               <a href="assets/videos/course-film-02.mp4">Open Course Film 02</a>
-            </video>
-          </figure>
-          <figure>
-            <figcaption id="coursework-03">Course Film 03 · 3:12</figcaption>
-            <video controls playsinline preload="none" aria-labelledby="coursework-03" poster="assets/videos/course-film-03.jpg">
-              <source src="assets/videos/course-film-03.mp4" type="video/mp4" />
-              <a href="assets/videos/course-film-03.mp4">Open Course Film 03</a>
             </video>
           </figure>
           </div>

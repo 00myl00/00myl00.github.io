@@ -888,6 +888,28 @@ section[id], main[id] { scroll-margin-top: 120px; }
   .research-hero { grid-template-columns: minmax(0, 1fr); }
   .research-poster { width: min(100%, 220px); }
 }
+.coursework { margin-top: 32px; }
+.coursework h3 { margin-bottom: 8px; }
+.coursework-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+  gap: 16px;
+  margin-top: 16px;
+}
+.coursework-grid figure {
+  margin: 0;
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel);
+}
+.coursework-grid figcaption { padding: 10px 14px; }
+.coursework-grid video {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: #000;
+}
     </style>
   </head>
   <body>
@@ -960,6 +982,33 @@ section[id], main[id] { scroll-margin-top: 120px; }
             <h3>EV Charging and Battery-Swapping Communications</h3>
             <p>At NIO Power, I developed content for regional social media accounts about EV charging and battery swapping, and supported communications campaigns for charging and swap stations.</p>
           </article>
+        </div>
+        <div class="coursework" aria-labelledby="coursework-title">
+          <h3 id="coursework-title">Coursework</h3>
+          <p>I made all three films independently, from writing the scripts through filming, editing, and delivering the final cuts.</p>
+          <div class="coursework-grid">
+          <figure>
+            <figcaption id="coursework-01">Course Film 01 · 0:59</figcaption>
+            <video controls playsinline preload="none" aria-labelledby="coursework-01" poster="assets/videos/course-film-01.jpg">
+              <source src="assets/videos/course-film-01.mp4" type="video/mp4" />
+              <a href="assets/videos/course-film-01.mp4">Open Course Film 01</a>
+            </video>
+          </figure>
+          <figure>
+            <figcaption id="coursework-02">Course Film 02 · 1:13</figcaption>
+            <video controls playsinline preload="none" aria-labelledby="coursework-02" poster="assets/videos/course-film-02.jpg">
+              <source src="assets/videos/course-film-02.mp4" type="video/mp4" />
+              <a href="assets/videos/course-film-02.mp4">Open Course Film 02</a>
+            </video>
+          </figure>
+          <figure>
+            <figcaption id="coursework-03">Course Film 03 · 3:12</figcaption>
+            <video controls playsinline preload="none" aria-labelledby="coursework-03" poster="assets/videos/course-film-03.jpg">
+              <source src="assets/videos/course-film-03.mp4" type="video/mp4" />
+              <a href="assets/videos/course-film-03.mp4">Open Course Film 03</a>
+            </video>
+          </figure>
+          </div>
         </div>
       </section>
 

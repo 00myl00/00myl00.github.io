@@ -1094,6 +1094,80 @@ h2 { font-size: clamp(1.85rem, 4vw, 3.1rem); line-height: 1.08; letter-spacing: 
   .site-header, main, .site-footer { width: calc(100% - 28px); }
   .section-heading { display: block; }
 }
+.coffee-cover .featured-video-still {
+  width: min(40%, 156px);
+  height: auto;
+}
+
+@media (max-width: 680px), (max-width: 920px) and (pointer: coarse) {
+  .project-media {
+    width: 100%;
+    aspect-ratio: auto;
+  }
+
+  .project-media img {
+    height: auto;
+    object-fit: contain;
+  }
+
+  .coffee-cover {
+    grid-template-rows: auto;
+    padding-block: 14px;
+  }
+
+  .coffee-cover .featured-video-still {
+    width: min(55%, 200px);
+    height: auto;
+  }
+
+  .research-poster {
+    width: min(100%, 240px);
+  }
+
+  .gallery-layout {
+    overflow: visible;
+  }
+
+  .stack-gallery {
+    display: grid;
+    width: 100%;
+    height: clamp(230px, 58vh, 420px);
+    height: clamp(230px, 58svh, 420px);
+    min-height: 0;
+    margin-bottom: 12px;
+  }
+
+  .stack-gallery .stack-card {
+    display: none;
+    position: static;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    border: 0;
+    border-radius: 0;
+    background: transparent;
+    box-shadow: none;
+    filter: none;
+    transform: none !important;
+  }
+
+  .stack-gallery .stack-card.active {
+    display: block;
+    opacity: 1;
+  }
+
+  .stack-gallery .stack-card img {
+    width: 100%;
+    height: 100%;
+    max-width: none;
+    max-height: none;
+    object-fit: contain;
+  }
+
+  .lightbox {
+    padding: 54px 12px 24px;
+  }
+}
     </style>
   </head>
   <body>
@@ -1129,7 +1203,7 @@ h2 { font-size: clamp(1.85rem, 4vw, 3.1rem); line-height: 1.08; letter-spacing: 
           <article class="experience-item">
             <a class="project-media coffee-cover" href="https://v.douyin.com/irfuwdoJfNE/" target="_blank" rel="noreferrer" aria-label="Watch Coffee Arrives on Douyin">
               <div class="featured-video-still">
-                <img src="assets/works/coffee-arrives-featured.jpg" alt="Coffee Arrives title graphic over a café entrance" loading="lazy" />
+                <img src="assets/works/coffee-arrives-featured.jpg" width="1206" height="2622" alt="Coffee Arrives title graphic over a café entrance" loading="lazy" />
               </div>
             </a>
             <div class="project-body">

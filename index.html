@@ -910,6 +910,41 @@ section[id], main[id] { scroll-margin-top: 120px; }
   aspect-ratio: 16 / 9;
   background: #000;
 }
+.nio-brand {
+  display: grid;
+  place-items: center;
+  min-height: 148px;
+  margin: 14px 0 18px;
+  border: 1px solid rgba(135, 232, 223, 0.24);
+  border-radius: 8px;
+  background: radial-gradient(ellipse at 50% 100%, #1c454c, #10262c 68%);
+}
+
+.nio-brand img {
+  display: block;
+  width: min(58%, 187px);
+  height: auto;
+  filter: brightness(0) invert(1);
+}
+
+.nio-films {
+  margin: 14px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nio-films li + li { margin-top: 7px; }
+
+.nio-films a {
+  display: block;
+  padding: 9px 12px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  color: var(--cyan);
+}
+
+.nio-films a:hover,
+.nio-films a:focus-visible { border-color: var(--cyan); }
     </style>
   </head>
   <body>
@@ -977,10 +1012,19 @@ section[id], main[id] { scroll-margin-top: 120px; }
             <div class="links"><a href="https://s.cyol.com/articles/2026-02/11/content_jp722eH2.html?gid=3DlgPxr2" target="_blank" rel="noreferrer">Read featured report ↗</a>
               <a href="https://s.cyol.com/articles/2026-02/09/content_5xBGvBSM.html" target="_blank" rel="noreferrer">Read additional report ↗</a></div>
           </article>
-          <article class="experience-item interactive-card">
-            <span>Digital communications · 2026</span>
-            <h3>EV Charging and Battery-Swapping Communications</h3>
-            <p>At NIO Power, I developed content for regional social media accounts about EV charging and battery swapping, and supported communications campaigns for charging and swap stations.</p>
+          <article class="experience-item interactive-card" id="nio-power">
+            <span>Generative AI video · 2026</span>
+            <h3>Generative AI Video Production for NIO Power</h3>
+            <a class="nio-brand" href="https://www.nio.com/nio-power" target="_blank" rel="noreferrer" aria-label="NIO Power official site">
+              <img src="assets/works/nio-power-wordmark.png" width="187" height="34" alt="NIO Power" loading="lazy" />
+            </a>
+            <p>I used generative AI to create four short videos about EV charging and battery swapping for NIO Power’s regional social media. My internship also included live-action production.</p>
+            <ul class="nio-films" aria-label="Watch the four films on Douyin">
+              <li><a href="https://v.douyin.com/P53yE83yDtY/" target="_blank" rel="noreferrer">Charged Before the Song Ends ↗</a></li>
+              <li><a href="https://v.douyin.com/KRimcRlBck8/" target="_blank" rel="noreferrer">A Full Charge in a Coffee Break ↗</a></li>
+              <li><a href="https://v.douyin.com/Dc_KraAs1kc/" target="_blank" rel="noreferrer">Guizhou’s First Fifth-Generation Power Swap Station Under Construction ↗</a></li>
+              <li><a href="https://v.douyin.com/UfFZN9VCBYQ/" target="_blank" rel="noreferrer">A Guide to Battery Swapping on Guizhou’s Highways ↗</a></li>
+            </ul>
           </article>
         </div>
         <div class="coursework" aria-labelledby="coursework-title">

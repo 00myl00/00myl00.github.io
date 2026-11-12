@@ -945,91 +945,236 @@ section[id], main[id] { scroll-margin-top: 120px; }
 
 .nio-films a:hover,
 .nio-films a:focus-visible { border-color: var(--cyan); }
+/* Portfolio layout */
+:root {
+  --max: 1160px;
+  --bg: #0b1014;
+  --panel: #121a20;
+  --text: #f3f5f4;
+  --muted: #afbdc4;
+  --cyan: #9ce5db;
+}
+
+body { background: var(--bg); }
+body::before { display: none; }
+.cursor-glow { display: none; }
+
+:focus-visible {
+  outline: 2px solid var(--cyan);
+  outline-offset: 4px;
+}
+
+.site-header {
+  margin-top: 10px;
+  padding: 6px 14px;
+  border-radius: 12px;
+  background: rgba(11, 16, 20, 0.95);
+}
+
+.brand { white-space: nowrap; }
+.nav { flex-wrap: nowrap; gap: 2px; }
+.nav a { display: grid; min-height: 44px; place-items: center; white-space: nowrap; }
+.site-header.is-hidden { opacity: 1; transform: translateX(-50%); }
+section[id], article[id] { scroll-margin-top: 82px; }
+#coursework-title { scroll-margin-top: 82px; }
+
+.hero {
+  min-height: clamp(500px, 73svh, 690px);
+  background:
+    linear-gradient(90deg, rgba(11, 16, 20, 0.92), rgba(11, 16, 20, 0.48) 68%, rgba(11, 16, 20, 0.2)),
+    linear-gradient(0deg, var(--bg), transparent 50%),
+    url("assets/hero-studio.png") 58% center / cover no-repeat;
+}
+
+.hero::after { display: none; }
+.hero-inner { padding: 110px 0 clamp(48px, 9vw, 92px); }
+.hero h1 { font-size: clamp(3rem, 8.5vw, 7.35rem); line-height: 0.99; letter-spacing: -0.065em; }
+.hero .intro-en { margin: 18px 0 24px; max-width: 43ch; color: #e1e9eb; font-size: clamp(1rem, 2vw, 1.22rem); line-height: 1.6; }
+.hero-actions { gap: 10px; }
+.hero-actions a { border-radius: 7px; }
+.hero-actions a:first-child { color: #0b1919; background: var(--cyan); border-color: var(--cyan); font-weight: 700; }
+.hero-actions a:first-child:hover { color: #0b1919; background: #c0f4ec; }
+
+.section { padding-block: clamp(46px, 6.8vw, 86px); }
+.section > h2, .section-heading { margin-bottom: 26px; }
+h2 { font-size: clamp(1.85rem, 4vw, 3.1rem); line-height: 1.08; letter-spacing: -0.045em; }
+
+#works, #about { display: block; }
+.experience-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.experience-grid article { min-width: 0; padding: 0; overflow: hidden; background: var(--panel); border-radius: 12px; }
+.project-body { padding: clamp(18px, 3vw, 28px); }
+.project-body h3 { font-size: clamp(1.35rem, 2.4vw, 1.85rem); line-height: 1.16; letter-spacing: -0.025em; }
+.project-body p + p { margin-top: 10px; }
+.project-body strong { color: var(--text); }
+.project-body .links { margin-top: 16px; }
+.project-body .links a { min-height: 44px; display: inline-flex; align-items: center; padding-inline: 12px; }
+.project-body .primary-link { color: var(--text); border-color: rgba(156, 229, 219, 0.48); }
+.project-media { margin: 0; aspect-ratio: 16 / 9; background: #10191e; }
+.project-media img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.coffee-cover { display: grid; place-items: center; background: radial-gradient(ellipse, #65432e, #241a16 76%); }
+.coffee-cover .featured-video-still { height: 100%; width: auto; border-radius: 0; }
+.coffee-cover .featured-video-still img { height: auto; margin-top: -28.2%; }
+#nio-power { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); }
+#nio-power .nio-brand { margin: 0; min-height: 190px; border: 0; border-radius: 0; }
+#nio-power .nio-brand img { width: min(62%, 187px); }
+.nio-films a { display: flex; align-items: center; min-height: 44px; color: #d9f4ef; }
+
+.coursework { margin-top: 38px; }
+.coursework > p, #about > p { max-width: 64ch; color: var(--muted); line-height: 1.65; }
+.coursework > h3 { font-size: 1.5rem; letter-spacing: -0.025em; }
+.coursework-grid { gap: 14px; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.coursework-grid video { object-fit: contain; }
+
+.research-hero { align-items: center; grid-template-columns: minmax(0, 1fr) minmax(140px, 210px); gap: clamp(20px, 5vw, 56px); }
+.research-hero p { color: var(--muted); line-height: 1.68; }
+.metrics-grid { grid-template-columns: minmax(0, 240px); }
+.section-heading p { margin: 0; color: var(--muted); }
+.gallery-layout { overflow: hidden; }
+.stack-gallery { min-height: clamp(240px, 62vw, 440px); margin: 0 auto; }
+.stack-card { width: min(70vw, 440px); height: clamp(155px, 48vw, 315px); overflow: hidden; background: #0b1014; }
+.stack-card img { height: 100%; object-fit: contain; }
+.gallery-controls { display: flex; align-items: center; justify-content: center; gap: 14px; }
+.gallery-controls button {
+  min-height: 44px;
+  padding: 8px 14px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--panel);
+  color: var(--text);
+  font: inherit;
+  cursor: pointer;
+}
+.gallery-controls output { color: var(--muted); font-variant-numeric: tabular-nums; }
+#about .profile-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+#about .profile-grid article { border: 1px solid var(--line); border-radius: 10px; padding: 22px; background: var(--panel); }
+#about h4 { margin: 20px 0 6px; line-height: 1.35; }
+.contact { display: block; }
+.contact-links a { min-height: 44px; display: inline-flex; align-items: center; }
+.reveal { opacity: 1; transform: none; }
+
+@media (max-width: 680px) {
+  .site-header { justify-content: center; padding: 3px 5px; }
+  .site-header .brand { display: none; }
+  .nav { width: 100%; justify-content: space-evenly; gap: 0; font-size: 0.78rem; }
+  .nav a { padding-inline: 6px; }
+  section[id], article[id], #coursework-title { scroll-margin-top: 70px; }
+  .hero { min-height: min(540px, 77svh); background-position: 65% center; }
+  .hero-inner { padding: 88px 0 46px; }
+  .hero h1 { font-size: clamp(2.85rem, 11vw, 4.5rem); }
+  .section > h2, .section-heading { margin-bottom: 20px; }
+  .experience-grid, #nio-power, .coursework-grid, #about .profile-grid { grid-template-columns: minmax(0, 1fr); }
+  .experience-grid { gap: 16px; }
+  #nio-power .nio-brand { min-height: 134px; }
+  .research-hero { padding: 18px; grid-template-columns: minmax(0, 1fr); }
+  .research-poster { width: min(58%, 180px); }
+  .gallery-section .section-heading p { margin-top: 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .hero-inner { animation: none; }
+  .stack-card { transition: none; }
+}
+.coffee-cover { grid-template-rows: minmax(0, 1fr); }
+.project-episodes { margin-top: 12px; color: var(--muted); }
+.project-episodes summary { display: list-item; width: fit-content; min-height: 44px; padding: 11px 0; cursor: pointer; }
+.project-body .project-platform { margin-top: 15px; font-size: 0.85rem; color: var(--text); }
+.project-media:focus-visible { outline-offset: -4px; }
+.lightbox[aria-hidden="true"] { visibility: hidden; }
+@media (max-width: 680px) {
+  .site-header, main, .site-footer { width: calc(100% - 28px); }
+  .section-heading { display: block; }
+}
     </style>
   </head>
   <body>
     <header class="site-header">
       <a class="brand" href="#top">Yonglin Mu</a>
       <nav class="nav" aria-label="Primary navigation">
-        <a href="#top">Home</a>
-        <a href="#works">Selected Works</a>
-        <a href="#research">Experiments &amp; Research</a>
-        <a href="#gallery">Visual Archive</a>
+        <a href="#works">Work</a>
+        <a href="#research">Research</a>
+        <a href="#gallery">Archive</a>
         <a href="#about">About</a>
         <a href="#contact">Contact</a>
       </nav>
     </header>
 
     <div class="scroll-progress" aria-hidden="true"></div>
-    <div class="cursor-glow" aria-hidden="true"></div>
 
     <main id="top">
-      <section class="hero reveal" aria-labelledby="hero-title">
+      <section class="hero" aria-labelledby="hero-title">
         <div class="hero-inner">
           <p class="eyebrow">Filmmaker &amp; Digital Media Creator</p>
           <h1 id="hero-title">Yonglin Mu</h1>
-          <p class="alias">Leslie</p>
-          <p class="intro">From Capturing Reality to Creating New Realities.</p>
-          <p class="intro-en">I work across audiovisual production and digital media research, exploring how stories are made and how audiences respond to them.</p>
+          <p class="intro-en">I make short films and digital media, and study how audiences respond to stories across platforms.</p>
           <div class="hero-actions">
-            <a href="#works">View Selected Works</a>
+            <a href="#works">View selected work</a>
             <a href="assets/documents/resume-en.pdf" target="_blank" rel="noreferrer">CV (PDF)</a>
           </div>
         </div>
       </section>
 
-      <section class="profile section reveal" id="works" aria-labelledby="works-title">
+      <section class="profile section" id="works" aria-labelledby="works-title">
         <h2 id="works-title">Selected Works</h2>
         <div class="profile-grid experience-grid">
-          <article class="experience-item interactive-card">
-            <span>Short-form video · 2024</span>
-            <h3>Coffee Arrives</h3>
-            <p>A Guizhou Radio and Television Station series exploring Guiyang through its coffee shops. I worked on planning, filming and editing, using quick cuts and on-screen text to tell each story in a short format.</p>
-            <figure class="featured-video">
-              <a href="https://v.douyin.com/irfuwdoJfNE/" target="_blank" rel="noreferrer">
-                <div class="featured-video-still">
-                  <img src="assets/works/coffee-arrives-featured.jpg" alt="Coffee Arrives title graphic over a café entrance" loading="lazy" />
+          <article class="experience-item">
+            <a class="project-media coffee-cover" href="https://v.douyin.com/irfuwdoJfNE/" target="_blank" rel="noreferrer" aria-label="Watch Coffee Arrives on Douyin">
+              <div class="featured-video-still">
+                <img src="assets/works/coffee-arrives-featured.jpg" alt="Coffee Arrives title graphic over a café entrance" loading="lazy" />
+              </div>
+            </a>
+            <div class="project-body">
+              <span>Short-form video · 2024</span>
+              <h3>Coffee Arrives</h3>
+              <p>A short-video series about Guiyang’s cafés for Guizhou Radio and Television Station. I helped plan, film and edit the series. For the featured episode, I filmed and edited the piece.</p>
+              <div class="links"><a class="primary-link" href="https://v.douyin.com/irfuwdoJfNE/" target="_blank" rel="noreferrer">Watch on Douyin ↗</a></div>
+              <details class="project-episodes">
+                <summary>More episodes</summary>
+                <div class="links">
+                  <a href="https://v.douyin.com/d_qWWonEvPY/" target="_blank" rel="noreferrer">Episode 1 ↗</a>
+                  <a href="https://v.douyin.com/569kA5_e7m4/" target="_blank" rel="noreferrer">Episode 2 ↗</a>
+                  <a href="https://v.douyin.com/3t0U2AM062w/" target="_blank" rel="noreferrer">Episode 3 ↗</a>
+                  <a href="https://v.douyin.com/oPANH_rnS1k/" target="_blank" rel="noreferrer">Episode 4 ↗</a>
+                  <a href="https://v.douyin.com/kBh8ssEHI40/" target="_blank" rel="noreferrer">Episode 5 ↗</a>
                 </div>
-                <span class="featured-video-label">Watch featured episode on Douyin ↗</span>
-              </a>
-              <figcaption>My role in this episode: Filming and editing<br />Published by 916 Guizhou Music Radio</figcaption>
-            </figure>
-
-            <div class="links"><a href="https://v.douyin.com/d_qWWonEvPY/" target="_blank" rel="noreferrer">Watch episode 1</a>
-              <a href="https://v.douyin.com/569kA5_e7m4/" target="_blank" rel="noreferrer">Watch episode 2</a>
-              <a href="https://v.douyin.com/3t0U2AM062w/" target="_blank" rel="noreferrer">Watch episode 3</a>
-              <a href="https://v.douyin.com/oPANH_rnS1k/" target="_blank" rel="noreferrer">Watch episode 4</a>
-              <a href="https://v.douyin.com/kBh8ssEHI40/" target="_blank" rel="noreferrer">Watch episode 5</a></div>
+              </details>
+            </div>
           </article>
-          <article class="experience-item interactive-card">
-            <span>Esports reporting · 2026</span>
-            <h3>VCT CN Kickoff Coverage</h3>
-            <p>As a campus media reporter for China Youth Network, I photographed and filmed the finals, interviewed players and coaches, and published match coverage.</p>
-            <figure class="report-photo">
+          <article class="experience-item">
+            <figure class="project-media">
               <img src="assets/works/vct-cn-kickoff.jpg" width="800" height="534" alt="Players gather onstage as confetti falls at VCT CN Kickoff" loading="lazy" />
             </figure>
-            <p><strong>My contribution to the featured report:</strong> Photography and interviews.</p>
-            <div class="links"><a href="https://s.cyol.com/articles/2026-02/11/content_jp722eH2.html?gid=3DlgPxr2" target="_blank" rel="noreferrer">Read featured report ↗</a>
-              <a href="https://s.cyol.com/articles/2026-02/09/content_5xBGvBSM.html" target="_blank" rel="noreferrer">Read additional report ↗</a></div>
+            <div class="project-body">
+              <span>Esports reporting · 2026</span>
+              <h3>VCT CN Kickoff</h3>
+              <p>I covered the finals as a campus reporter for China Youth Network. For the featured report, I photographed the event and interviewed players and coaches.</p>
+              <div class="links">
+                <a class="primary-link" href="https://s.cyol.com/articles/2026-02/11/content_jp722eH2.html?gid=3DlgPxr2" target="_blank" rel="noreferrer">Read featured report ↗</a>
+                <a href="https://s.cyol.com/articles/2026-02/09/content_5xBGvBSM.html" target="_blank" rel="noreferrer">Read second report ↗</a>
+              </div>
+            </div>
           </article>
-          <article class="experience-item interactive-card" id="nio-power">
-            <span>Generative AI video · 2026</span>
-            <h3>Generative AI Video Production for NIO Power</h3>
+          <article class="experience-item" id="nio-power">
             <a class="nio-brand" href="https://www.nio.com/nio-power" target="_blank" rel="noreferrer" aria-label="NIO Power official site">
               <img src="assets/works/nio-power-wordmark.png" width="187" height="34" alt="NIO Power" loading="lazy" />
             </a>
-            <p>I used generative AI to create four short videos about EV charging and battery swapping for NIO Power’s regional social media. My internship also included live-action production.</p>
-            <ul class="nio-films" aria-label="Watch the four films on Douyin">
-              <li><a href="https://v.douyin.com/P53yE83yDtY/" target="_blank" rel="noreferrer">Charged Before the Song Ends ↗</a></li>
-              <li><a href="https://v.douyin.com/KRimcRlBck8/" target="_blank" rel="noreferrer">A Full Charge in a Coffee Break ↗</a></li>
-              <li><a href="https://v.douyin.com/Dc_KraAs1kc/" target="_blank" rel="noreferrer">Guizhou’s First Fifth-Generation Power Swap Station Under Construction ↗</a></li>
-              <li><a href="https://v.douyin.com/UfFZN9VCBYQ/" target="_blank" rel="noreferrer">A Guide to Battery Swapping on Guizhou’s Highways ↗</a></li>
-            </ul>
+            <div class="project-body">
+              <span>Generative AI video · 2026</span>
+              <h3>Generative AI Films for NIO Power</h3>
+              <p>I used generative AI to make four short videos about EV charging and battery swapping for NIO Power’s regional social channels. I also worked on live-action production during the internship.</p>
+              <p class="project-platform">Watch on Douyin</p>
+              <ul class="nio-films" aria-label="Watch the four films on Douyin">
+                <li><a href="https://v.douyin.com/P53yE83yDtY/" target="_blank" rel="noreferrer">Charged Before the Song Ends ↗</a></li>
+                <li><a href="https://v.douyin.com/KRimcRlBck8/" target="_blank" rel="noreferrer">A Full Charge in a Coffee Break ↗</a></li>
+                <li><a href="https://v.douyin.com/Dc_KraAs1kc/" target="_blank" rel="noreferrer">Building Guizhou’s First Fifth-Generation Swap Station ↗</a></li>
+                <li><a href="https://v.douyin.com/UfFZN9VCBYQ/" target="_blank" rel="noreferrer">A Guide to Battery Swapping on Guizhou’s Highways ↗</a></li>
+              </ul>
+            </div>
           </article>
         </div>
         <div class="coursework" aria-labelledby="coursework-title">
           <h3 id="coursework-title">Coursework</h3>
-          <p>I made all three films independently, from writing the scripts through filming, editing, and delivering the final cuts.</p>
+          <p>I wrote, filmed and edited all three films independently.</p>
           <div class="coursework-grid">
           <figure>
             <figcaption id="coursework-01">Course Film 01 · 0:59</figcaption>
@@ -1056,14 +1201,14 @@ section[id], main[id] { scroll-margin-top: 120px; }
         </div>
       </section>
 
-      <section class="research section reveal" id="research" aria-labelledby="research-title">
+      <section class="research section" id="research" aria-labelledby="research-title">
         <h2 id="research-title">Experiments &amp; Research</h2>
-        <div class="research-hero interactive-card">
+        <div class="research-hero">
           <div>
             <p class="research-label">Audience research · March–June 2026</p>
-            <h3>Transmedia Storytelling and Audience Reception in <em>Cyberpunk: Edgerunners</em></h3>
-            <p>I studied how Steam reviews of <em>Cyberpunk 2077</em> changed around the release of its animated adaptation. I cleaned the review data in Python, classified review content using bilingual keyword rules, and compared patterns using chi-square tests.</p>
-            <p>Recommendations increased by nearly 5% in the period studied. The paper examines how a standalone adaptation can give audiences a new way to engage with an existing fictional world.</p>
+            <h3>How <em>Cyberpunk: Edgerunners</em> Was Received by Players</h3>
+            <p>I analyzed Steam reviews of <em>Cyberpunk 2077</em> before and after the release of its animated adaptation. I cleaned the data in Python, categorized reviews using keywords in two languages, and compared the results with chi-square tests.</p>
+            <p>The share of positive recommendations rose over the period I studied. I explored how a standalone adaptation can give audiences a new way into an existing fictional world.</p>
             <a class="research-paper" href="assets/documents/essay.pdf" target="_blank" rel="noreferrer">Read the paper (PDF)</a>
           </div>
           <figure class="research-poster">
@@ -1076,11 +1221,11 @@ section[id], main[id] { scroll-margin-top: 120px; }
         </div>
       </section>
 
-      <section class="gallery-section section reveal" id="gallery" aria-labelledby="gallery-title">
+      <section class="gallery-section section" id="gallery" aria-labelledby="gallery-title">
         <div class="section-heading">
           
           <h2 id="gallery-title">Visual Archive</h2>
-          <p>Drag or swipe to browse 10 photos. Select a photo to enlarge it.</p>
+          <p>Swipe to browse, or select a photo to enlarge it.</p>
         </div>
         <div class="gallery-layout">
           <div class="stack-gallery" aria-label="Portfolio image stack">
@@ -1116,16 +1261,21 @@ section[id], main[id] { scroll-margin-top: 120px; }
             </button>
           </div>
         </div>
+        <div class="gallery-controls" aria-label="Photo navigation">
+          <button type="button" data-gallery-step="-1" aria-label="Previous photo">← Previous</button>
+          <output aria-live="polite" aria-atomic="true">1 / 10</output>
+          <button type="button" data-gallery-step="1" aria-label="Next photo">Next →</button>
+        </div>
       </section>
 
-      <section class="profile section reveal" id="about" aria-labelledby="about-title">
+      <section class="profile section" id="about" aria-labelledby="about-title">
         <h2 id="about-title">About</h2>
-        <p>I’m Yonglin Mu (Leslie), a Communication Studies student working across short-form video, field reporting and digital audience research.</p>
+        <p>I’m Yonglin Mu (Leslie), a communication studies student. My work spans short-form video, on-site reporting and audience research.</p>
         <div class="profile-grid">
           <article id="education">
             <h3>Education</h3>
             <h4>South China University of Technology</h4>
-            <p>Communication Studies, Audiovisual Communication track. Bachelor’s degree expected July 2027. GPA 3.86/4.00 · Major rank 11/71.</p>
+            <p>Communication Studies, Audiovisual Communication track. Bachelor’s degree expected July 2027. GPA 3.86/4.00 · Ranked 11th out of 71 in my major.</p>
             <h4>Hanyang University</h4>
             <p>Exchange student, September–December 2024. Coursework included media strategy and planning.</p>
             <h4>Award</h4>
@@ -1138,17 +1288,17 @@ section[id], main[id] { scroll-margin-top: 120px; }
             <h4>China Youth Network · Campus Media Reporter</h4>
             <p>February 2026 · On-site esports reporting and interviews.</p>
             <h4>International Mountain Tourism Alliance · General Affairs Intern</h4>
-            <p>July–August 2025 · English translation proofreading and preparation of international tourism materials.</p>
+            <p>July–August 2025 · Proofread English translations and prepared materials for international tourism initiatives.</p>
             <h4>Guizhou Radio and Television Station · Traffic Music Department Intern</h4>
             <p>January–February 2024 · Short-form video production and audience engagement tracking.</p>
           </article>
         </div>
       </section>
 
-      <section class="contact section reveal" id="contact" aria-labelledby="contact-title">
+      <section class="contact section" id="contact" aria-labelledby="contact-title">
         <h2 id="contact-title">Contact</h2>
         <div class="contact-links">
-          <a class="copy-link" href="mailto:muyonglin27@163.com" data-copy="muyonglin27@163.com">muyonglin27@163.com</a>
+          <a href="mailto:muyonglin27@163.com">muyonglin27@163.com</a>
           <a href="https://github.com/00myl00" target="_blank" rel="noreferrer">GitHub</a>
           <a href="assets/documents/resume-en.pdf" target="_blank" rel="noreferrer">CV (PDF)</a>
         </div>
@@ -1167,25 +1317,18 @@ section[id], main[id] { scroll-margin-top: 120px; }
 
     <script>
 const progressBar = document.querySelector(".scroll-progress");
-const siteHeader = document.querySelector(".site-header");
-const cursorGlow = document.querySelector(".cursor-glow");
-const revealItems = document.querySelectorAll(".reveal");
-const interactiveCards = document.querySelectorAll(".interactive-card");
-const copyLinks = document.querySelectorAll(".copy-link");
 const stackGallery = document.querySelector(".stack-gallery");
 const stackCards = Array.from(document.querySelectorAll(".stack-card"));
 const lightbox = document.querySelector(".lightbox");
 const lightboxImage = document.querySelector(".lightbox img");
 const lightboxClose = document.querySelector(".lightbox-close");
 
-const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 let activeGalleryIndex = 0;
 let dragStartX = 0;
 let dragStartY = 0;
 let dragX = 0;
 let isDraggingGallery = false;
 let didDragGallery = false;
-let lastScrollY = window.scrollY;
 
 const galleryScatter = [
   { x: -12, y: 0, r: -5.8 },
@@ -1206,25 +1349,6 @@ function updateProgress() {
   progressBar.style.width = `${Math.min(progress * 100, 100)}%`;
 }
 
-function updateMobileHeader() {
-  if (!siteHeader) return;
-
-  const currentScrollY = window.scrollY;
-  const isMobile = window.matchMedia("(max-width: 620px)").matches;
-  const scrollingDown = currentScrollY > lastScrollY + 8;
-  const scrollingUp = currentScrollY < lastScrollY - 8;
-
-  if (!isMobile || currentScrollY < 80) {
-    siteHeader.classList.remove("is-hidden");
-  } else if (scrollingDown) {
-    siteHeader.classList.add("is-hidden");
-  } else if (scrollingUp) {
-    siteHeader.classList.remove("is-hidden");
-  }
-
-  lastScrollY = currentScrollY;
-}
-
 function getRelativeIndex(index) {
   const total = stackCards.length;
   let diff = index - activeGalleryIndex;
@@ -1239,7 +1363,7 @@ function getCardPose(diff, dragOffset = 0) {
   const distance = Math.abs(diff);
   const dragInfluence = Math.max(0.14, 1 - distance * 0.2);
   const x = diff * 44 + scatter.x + dragOffset * dragInfluence;
-  const y = distance * 18 + scatter.y;
+  const y = diff === 0 ? 0 : distance * 18 + scatter.y;
   const rotate = scatter.r + diff * 1.5 + dragOffset / 46;
   const scale = Math.max(0.76, 1.02 - distance * 0.045);
   const opacity = Math.max(0.24, 1 - distance * 0.12);
@@ -1267,10 +1391,13 @@ function renderGallery(dragOffset = 0) {
   stackCards.forEach((card, index) => {
     const diff = getRelativeIndex(index);
     const pose = getCardPose(diff, dragOffset);
+    const spread = compactGallery.matches ? 0.46 : 0.75;
 
     card.classList.toggle("active", diff === 0);
+    card.tabIndex = diff === 0 ? 0 : -1;
+    card.style.pointerEvents = pose.opacity > 0 ? "" : "none";
     card.style.zIndex = String(100 - Math.abs(diff));
-    card.style.transform = `translateX(calc(-50% + ${pose.x}px)) translateY(${pose.y}px) rotate(${pose.rotate}deg) scale(${pose.scale})`;
+    card.style.transform = `translateX(calc(-50% + ${pose.x * spread}px)) translateY(${pose.y * spread}px) rotate(${pose.rotate}deg) scale(${pose.scale})`;
     card.style.setProperty("--card-opacity", pose.opacity.toFixed(2));
     card.style.setProperty("--card-saturation", pose.saturation.toFixed(2));
     card.style.setProperty("--card-brightness", pose.brightness.toFixed(2));
@@ -1280,73 +1407,24 @@ function renderGallery(dragOffset = 0) {
 function setActiveGallery(index) {
   if (!stackCards.length) return;
   activeGalleryIndex = (index + stackCards.length) % stackCards.length;
+  galleryCounter.value = `${activeGalleryIndex + 1} / ${stackCards.length}`;
   dragX = 0;
   renderGallery();
 }
 
-window.addEventListener(
-  "scroll",
-  () => {
-    updateProgress();
-    updateMobileHeader();
-  },
-  { passive: true },
-);
+window.addEventListener("scroll", updateProgress, { passive: true });
 updateProgress();
-updateMobileHeader();
 
-if (!reduceMotion) {
-  window.addEventListener(
-    "pointermove",
-    (event) => {
-      cursorGlow.style.opacity = "1";
-      cursorGlow.style.transform = `translate(${event.clientX - 210}px, ${event.clientY - 210}px)`;
-    },
-    { passive: true },
-  );
+const gallerySection = document.querySelector("#gallery");
+const galleryCounter = gallerySection.querySelector("output");
+const compactGallery = window.matchMedia("(max-width: 680px)");
 
-  interactiveCards.forEach((card) => {
-    card.addEventListener("pointermove", (event) => {
-      const rect = card.getBoundingClientRect();
-      const x = (event.clientX - rect.left) / rect.width - 0.5;
-      const y = (event.clientY - rect.top) / rect.height - 0.5;
-      card.style.transform = `perspective(900px) rotateX(${y * -3}deg) rotateY(${x * 4}deg) translateY(-2px)`;
-    });
-
-    card.addEventListener("pointerleave", () => {
-      card.style.transform = "";
-    });
-  });
-}
-
-const observer = new IntersectionObserver(
-  (entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add("is-visible");
-        observer.unobserve(entry.target);
-      }
-    });
-  },
-  { threshold: 0.16 },
-);
-
-revealItems.forEach((item) => observer.observe(item));
-
-copyLinks.forEach((link) => {
-  link.addEventListener("click", async (event) => {
-    const value = link.dataset.copy;
-    if (!value || !navigator.clipboard) return;
-
-    event.preventDefault();
-    await navigator.clipboard.writeText(value);
-    const original = link.textContent;
-    link.textContent = "\u5df2\u590d\u5236\u90ae\u7bb1";
-    window.setTimeout(() => {
-      link.textContent = original;
-    }, 1200);
+gallerySection.querySelectorAll("[data-gallery-step]").forEach((button) => {
+  button.addEventListener("click", () => {
+    setActiveGallery(activeGalleryIndex + Number(button.dataset.galleryStep));
   });
 });
+compactGallery.addEventListener("change", () => renderGallery());
 
 function openGalleryImage() {
   const activeCard = stackCards[activeGalleryIndex];
@@ -1358,13 +1436,15 @@ function openGalleryImage() {
   lightbox.classList.add("is-open");
   lightbox.setAttribute("aria-hidden", "false");
   document.body.style.overflow = "hidden";
+  lightboxClose?.focus();
 }
 
 function closeGalleryImage() {
-  if (!lightbox) return;
+  if (!lightbox?.classList.contains("is-open")) return;
   lightbox.classList.remove("is-open");
   lightbox.setAttribute("aria-hidden", "true");
   document.body.style.overflow = "";
+  stackCards[activeGalleryIndex]?.focus();
 }
 
 stackCards.forEach((card, index) => {
@@ -1392,10 +1472,11 @@ function startGalleryDrag(clientX, clientY) {
 function moveGalleryDrag(clientX, clientY, event) {
   if (!isDraggingGallery) return;
 
-  event?.preventDefault();
   const nextDragX = clientX - dragStartX;
   const deltaY = clientY - dragStartY;
-  if (Math.abs(nextDragX) < 4 && Math.abs(deltaY) < 4) return;
+  if (Math.abs(nextDragX) < 6) return;
+  if (!didDragGallery && Math.abs(deltaY) > Math.abs(nextDragX)) return;
+  if (event?.cancelable) event.preventDefault();
 
   didDragGallery = true;
   dragX = Math.max(-170, Math.min(170, nextDragX));
@@ -1422,7 +1503,6 @@ function finishGalleryDrag() {
 if ("PointerEvent" in window) {
   stackGallery?.addEventListener("pointerdown", (event) => {
     if (event.button !== undefined && event.button !== 0) return;
-    event.preventDefault();
     startGalleryDrag(event.clientX, event.clientY);
   });
 
@@ -1487,8 +1567,12 @@ lightboxClose?.addEventListener("click", closeGalleryImage);
 
 window.addEventListener("keydown", (event) => {
   if (event.key === "Escape") closeGalleryImage();
-  if (event.key === "ArrowLeft") setActiveGallery(activeGalleryIndex - 1);
-  if (event.key === "ArrowRight") setActiveGallery(activeGalleryIndex + 1);
+  if (!gallerySection.contains(event.target)) return;
+  if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
+  event.preventDefault();
+  const focusedOnPhoto = stackGallery.contains(event.target);
+  setActiveGallery(activeGalleryIndex + (event.key === "ArrowRight" ? 1 : -1));
+  if (focusedOnPhoto) stackCards[activeGalleryIndex].focus();
 });
 
 renderGallery();

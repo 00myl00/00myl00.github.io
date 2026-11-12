@@ -1,12 +1,12 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mu Yonglin | Audiovisual Portfolio</title>
+    <title>Yonglin Mu | Film &amp; Digital Media Portfolio</title>
     <meta
       name="description"
-      content="Mu Yonglin 的视听传播作品集，收录教育经历、实践作品、媒介研究与受众分析项目。"
+      content="Selected film, digital media and audience research by Yonglin Mu."
     />
     <style>
 :root {
@@ -427,15 +427,6 @@ h2 {
   line-height: 1.82;
 }
 
-.research-hero > a {
-  white-space: nowrap;
-  padding: 11px 15px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  color: var(--text);
-  font-size: 0.88rem;
-}
-
 .metrics-grid {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -852,17 +843,63 @@ h2 {
   }
 }
 
+    .nav { flex-wrap: wrap; }
+section[id], main[id] { scroll-margin-top: 120px; }
+.featured-video { max-width: 260px; margin: 20px 0; }
+.featured-video a { display: block; color: var(--cyan); }
+.featured-video a:focus-visible { outline: 2px solid var(--cyan); outline-offset: 4px; }
+.featured-video-still { aspect-ratio: 942 / 1325; overflow: hidden; border-radius: 12px; }
+.featured-video-still img { display: block; width: 100%; height: auto; margin-top: -28.2%; }
+.featured-video .featured-video-label { display: block; margin-top: 8px; color: inherit; }
+.featured-video figcaption { margin-top: 4px; color: var(--muted); font-size: 0.85rem; }
+    
+.report-photo { margin: 16px 0; }
+.report-photo img { display: block; width: 100%; height: auto; border-radius: 12px; }
+.research-hero {
+  grid-template-columns: minmax(0, 1fr) minmax(170px, 240px);
+  align-items: center;
+}
+
+.research-poster { margin: 0; }
+.research-poster img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+.research-poster figcaption {
+  margin-top: 8px;
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.research-paper {
+  display: inline-block;
+  margin-top: 18px;
+  padding: 11px 15px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  color: var(--text);
+  font-size: 0.88rem;
+}
+
+@media (max-width: 700px) {
+  .research-hero { grid-template-columns: minmax(0, 1fr); }
+  .research-poster { width: min(100%, 220px); }
+}
     </style>
   </head>
   <body>
     <header class="site-header">
-      <a class="brand" href="#top">Mu Yonglin</a>
+      <a class="brand" href="#top">Yonglin Mu</a>
       <nav class="nav" aria-label="Primary navigation">
-        <a href="#gallery">图集 / Gallery</a>
-        <a href="#education">教育 / Education</a>
-        <a href="#experience">实践 / Experience</a>
-        <a href="#research">研究 / Research</a>
-        <a href="#contact">联系 / Contact</a>
+        <a href="#top">Home</a>
+        <a href="#works">Selected Works</a>
+        <a href="#research">Experiments &amp; Research</a>
+        <a href="#gallery">Visual Archive</a>
+        <a href="#about">About</a>
+        <a href="#contact">Contact</a>
       </nav>
     </header>
 
@@ -872,27 +909,91 @@ h2 {
     <main id="top">
       <section class="hero reveal" aria-labelledby="hero-title">
         <div class="hero-inner">
-          <p class="eyebrow">Audiovisual Communication</p>
-          <h1 id="hero-title">Mu Yonglin</h1>
+          <p class="eyebrow">Filmmaker &amp; Digital Media Creator</p>
+          <h1 id="hero-title">Yonglin Mu</h1>
           <p class="alias">Leslie</p>
-          <p class="intro">视听创作者 / 数据分析探索者</p>
-          <p class="intro-en">Audiovisual creator and data analysis explorer.</p>
-          <div class="meta">
-            <span>华南理工大学 SCUT</span>
-            <span>视听传播 Audiovisual Communication</span>
-            <span>广州 / 贵阳 Guangzhou / Guiyang</span>
-          </div>
+          <p class="intro">From Capturing Reality to Creating New Realities.</p>
+          <p class="intro-en">I work across audiovisual production and digital media research, exploring how stories are made and how audiences respond to them.</p>
           <div class="hero-actions">
-            <a href="#experience">查看实践 / View Experience</a>
-            <a href="assets/documents/resume.pdf" target="_blank" rel="noreferrer">简历 PDF / Resume PDF</a>
+            <a href="#works">View Selected Works</a>
+            <a href="assets/documents/resume.pdf" target="_blank" rel="noreferrer">CV (PDF)</a>
           </div>
+        </div>
+      </section>
+
+      <section class="profile section reveal" id="works" aria-labelledby="works-title">
+        <h2 id="works-title">Selected Works</h2>
+        <div class="profile-grid experience-grid">
+          <article class="experience-item interactive-card">
+            <span>Short-form video · 2024</span>
+            <h3>Coffee Arrives</h3>
+            <p>A Guizhou Radio and Television Station series exploring Guiyang through its coffee shops. I worked on planning, filming and editing, using quick cuts and on-screen text to tell each story in a short format.</p>
+            <figure class="featured-video">
+              <a href="https://v.douyin.com/irfuwdoJfNE/" target="_blank" rel="noreferrer">
+                <div class="featured-video-still">
+                  <img src="assets/works/coffee-arrives-featured.jpg" alt="Coffee Arrives title graphic over a café entrance" loading="lazy" />
+                </div>
+                <span class="featured-video-label">Watch featured episode on Douyin ↗</span>
+              </a>
+              <figcaption>My role in this episode: Filming and editing<br />Published by 916 Guizhou Music Radio</figcaption>
+            </figure>
+
+            <div class="links"><a href="https://v.douyin.com/d_qWWonEvPY/" target="_blank" rel="noreferrer">Watch episode 1</a>
+              <a href="https://v.douyin.com/569kA5_e7m4/" target="_blank" rel="noreferrer">Watch episode 2</a>
+              <a href="https://v.douyin.com/3t0U2AM062w/" target="_blank" rel="noreferrer">Watch episode 3</a>
+              <a href="https://v.douyin.com/oPANH_rnS1k/" target="_blank" rel="noreferrer">Watch episode 4</a>
+              <a href="https://v.douyin.com/kBh8ssEHI40/" target="_blank" rel="noreferrer">Watch episode 5</a></div>
+          </article>
+          <article class="experience-item interactive-card">
+            <span>Esports reporting · 2026</span>
+            <h3>VCT CN Kickoff Coverage</h3>
+            <p>As a campus media reporter for China Youth Network, I photographed and filmed the finals, interviewed players and coaches, and published match coverage.</p>
+            <figure class="report-photo">
+              <img src="assets/works/vct-cn-kickoff.jpg" width="800" height="534" alt="Players gather onstage as confetti falls at VCT CN Kickoff" loading="lazy" />
+            </figure>
+            <p><strong>My contribution to the featured report:</strong> Photography and interviews.</p>
+            <div class="links"><a href="https://s.cyol.com/articles/2026-02/11/content_jp722eH2.html?gid=3DlgPxr2" target="_blank" rel="noreferrer">Read featured report ↗</a>
+              <a href="https://s.cyol.com/articles/2026-02/09/content_5xBGvBSM.html" target="_blank" rel="noreferrer">Read additional report ↗</a></div>
+          </article>
+          <article class="experience-item interactive-card">
+            <span>Event coverage · 2024</span>
+            <h3>McDonald's Campaign Coverage</h3>
+            <p>Published event coverage from Guizhou Radio and Television Station.</p>
+            <div class="links"><a href="https://www.gzstv.com/a/e0a509bf7e614c6099edaf106f97981c" target="_blank" rel="noreferrer">Read campaign report</a></div>
+          </article>
+          <article class="experience-item interactive-card">
+            <span>Digital communications · 2026</span>
+            <h3>EV Charging and Battery-Swapping Communications</h3>
+            <p>At NIO Power, I developed content for regional social media accounts about EV charging and battery swapping, and supported communications campaigns for charging and swap stations.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="research section reveal" id="research" aria-labelledby="research-title">
+        <h2 id="research-title">Experiments &amp; Research</h2>
+        <div class="research-hero interactive-card">
+          <div>
+            <p class="research-label">Audience research · March–June 2026</p>
+            <h3>Transmedia Storytelling and Audience Reception in <em>Cyberpunk: Edgerunners</em></h3>
+            <p>I studied how Steam reviews of <em>Cyberpunk 2077</em> changed around the release of its animated adaptation. I cleaned the review data in Python, classified review content using bilingual keyword rules, and compared patterns using chi-square tests.</p>
+            <p>Recommendations increased by nearly 5% in the period studied. The paper examines how a standalone adaptation can give audiences a new way to engage with an existing fictional world.</p>
+            <a class="research-paper" href="assets/documents/essay.pdf" target="_blank" rel="noreferrer">Read the paper (PDF)</a>
+          </div>
+          <figure class="research-poster">
+            <img src="assets/works/cyberpunk-edgerunners-poster.jpg" width="720" height="1068" alt="Cyberpunk: Edgerunners teaser poster showing a figure in a yellow jacket against the Night City skyline" loading="lazy" />
+            <figcaption><a href="https://about.netflix.com/en/news/netflix-cd-projekt-red-and-studio-trigger-come-together-for-global-anime-cyberpunk-edgerunners" target="_blank" rel="noreferrer">Official teaser poster via Netflix ↗</a></figcaption>
+          </figure>
+        </div>
+        <div class="metrics-grid" aria-label="Research dataset">
+          <article><strong>54,787</strong><span>Steam reviews analyzed</span></article>
         </div>
       </section>
 
       <section class="gallery-section section reveal" id="gallery" aria-labelledby="gallery-title">
         <div class="section-heading">
-          <p class="section-kicker">Visual Archive</p>
-          <h2 id="gallery-title">图集 / Gallery</h2>
+          
+          <h2 id="gallery-title">Visual Archive</h2>
+          <p>Drag or swipe to browse 10 photos. Select a photo to enlarge it.</p>
         </div>
         <div class="gallery-layout">
           <div class="stack-gallery" aria-label="Portfolio image stack">
@@ -930,157 +1031,46 @@ h2 {
         </div>
       </section>
 
-      <section class="profile section reveal" id="education" aria-labelledby="education-title">
-        <div>
-          <p class="section-kicker">Education</p>
-          <h2 id="education-title">教育经历 / Education</h2>
-        </div>
+      <section class="profile section reveal" id="about" aria-labelledby="about-title">
+        <h2 id="about-title">About</h2>
+        <p>I’m Yonglin Mu (Leslie), a Communication Studies student working across short-form video, field reporting and digital audience research.</p>
         <div class="profile-grid">
-          <article>
-            <span>2023.09 - 至今 / Present</span>
-            <h3>华南理工大学 South China University of Technology</h3>
-            <p>新闻与传播学院视听传播系，本科在读。GPA 3.86 / 4.0，专业前 15%。</p>
-            <p class="en-text">B.A. candidate in Audiovisual Communication, School of Journalism and Communication.</p>
+          <article id="education">
+            <h3>Education</h3>
+            <h4>South China University of Technology</h4>
+            <p>Communication Studies, Audiovisual Communication track. Bachelor’s degree expected July 2027. GPA 3.86/4.00 · Major rank 11/71.</p>
+            <h4>Hanyang University</h4>
+            <p>Exchange student, September–December 2024. Coursework included media strategy and planning.</p>
+            <h4>Award</h4>
+            <p>Provincial Third Prize, National Advertising Art Design Competition for College Students, Guangdong, 2024.</p>
           </article>
-          <article>
-            <span>2024.09 - 2024.12</span>
-            <h3>韩国汉阳大学 Hanyang University</h3>
-            <p>学费互免交换生，全英语课程。参与跨文化媒体战略企划与广告排期研究。</p>
-            <p class="en-text">Exchange student. Completed English-taught media strategy planning coursework.</p>
-          </article>
-        </div>
-      </section>
-
-      <section class="profile section reveal" id="experience" aria-labelledby="experience-title">
-        <div>
-          <p class="section-kicker">Experience & Works</p>
-          <h2 id="experience-title">实践经历与作品 / Experience & Works</h2>
-        </div>
-        <div class="profile-grid experience-grid">
-          <article class="experience-item interactive-card">
-            <span>2026.02</span>
-            <h3>VCT CN 无畏契约启点赛</h3>
-            <p>中国青年网校媒记者，参与赛事现场视听内容产出、赛后采访与报道发布。</p>
-            <p class="en-text">Media reporter for China Youth Network, covering on-site audiovisual production and post-match reporting.</p>
-            <div class="links">
-              <a href="https://s.cyol.com/articles/2026-02/11/content_jp722eH2.html?gid=3DlgPxr2" target="_blank" rel="noreferrer">报道 01 / Report 01</a>
-              <a href="https://s.cyol.com/articles/2026-02/09/content_5xBGvBSM.html" target="_blank" rel="noreferrer">报道 02 / Report 02</a>
-            </div>
-          </article>
-
-          <article class="experience-item interactive-card">
-            <span>2025 暑假 / Summer 2025</span>
-            <h3>国际山地旅游联盟 International Mountain Tourism Alliance</h3>
-            <p>秘书处综合业务部实习，参与跨国文件校译与国际活动外宣资料整理。</p>
-            <p class="en-text">Supported English document proofreading and international event communication materials.</p>
-          </article>
-
-          <article class="experience-item interactive-card">
-            <span>2024 寒假 / Winter 2024</span>
-            <h3>贵州省广播电视台 Guizhou Radio & Television Station</h3>
-            <p>交通音乐部新媒体运营实习，参与本地生活短视频选题、脚本、拍摄剪辑与矩阵分发。</p>
-            <p class="en-text">New media operation intern. Worked on short-video planning, scripting, shooting, editing and platform distribution.</p>
-            <div class="subwork">
-              <h4>《咖啡驾到》新媒体短视频 / Coffee Arrival Short Videos</h4>
-              <div class="links">
-                <a href="https://v.douyin.com/d_qWWonEvPY/" target="_blank" rel="noreferrer">视频 01</a>
-                <a href="https://v.douyin.com/569kA5_e7m4/" target="_blank" rel="noreferrer">视频 02</a>
-                <a href="https://v.douyin.com/3t0U2AM062w/" target="_blank" rel="noreferrer">视频 03</a>
-                <a href="https://v.douyin.com/oPANH_rnS1k/" target="_blank" rel="noreferrer">视频 04</a>
-                <a href="https://v.douyin.com/kBh8ssEHI40/" target="_blank" rel="noreferrer">视频 05</a>
-              </div>
-            </div>
-            <div class="subwork">
-              <h4>麦当劳活动新媒体项目 / McDonald's Campaign Coverage</h4>
-              <div class="links">
-                <a href="https://www.gzstv.com/a/e0a509bf7e614c6099edaf106f97981c" target="_blank" rel="noreferrer">活动报道 / Campaign Report</a>
-              </div>
-            </div>
-          </article>
-        </div>
-      </section>
-
-      <section class="research section reveal" id="research" aria-labelledby="research-title">
-        <div class="section-heading">
-          <p class="section-kicker">Research Insight</p>
-          <h2 id="research-title">论文研究与业务能力 / Research & Capability</h2>
-        </div>
-
-        <div class="research-hero interactive-card">
-          <div>
-            <p class="research-label">Case Study</p>
-            <h3>游戏衍生动画如何反向修复游戏口碑</h3>
-            <p>
-              这项研究不只是论文写作，而是一次受众反馈诊断：从玩家评论中识别情绪变化、
-              评价标准转移和购买意向，判断跨媒介内容是否能成为品牌危机后的传播修复路径。
-            </p>
-            <p class="en-text">
-              A data-informed audience analysis on how transmedia storytelling can reshape public perception after a brand crisis.
-            </p>
-          </div>
-          <a href="assets/documents/essay.pdf" target="_blank" rel="noreferrer">论文 PDF / Full Paper</a>
-        </div>
-
-        <div class="metrics-grid" aria-label="Research metrics">
-          <article>
-            <strong>54,787</strong>
-            <span>有效 Steam 评论样本 / Valid reviews</span>
-          </article>
-          <article>
-            <strong>+4.9%</strong>
-            <span>推荐率提升 / Recommendation lift</span>
-          </article>
-          <article>
-            <strong>15x</strong>
-            <span>动画直接归因增长 / Direct anime attribution</span>
-          </article>
-          <article>
-            <strong>p&lt;0.001</strong>
-            <span>核心差异显著 / Significant findings</span>
-          </article>
-        </div>
-
-        <div class="capability-grid">
-          <article class="capability-card">
-            <span>01</span>
-            <h3>受众分析 / Audience Analysis</h3>
-            <p>将评论拆分为产品质量、角色、世界观、社区舆论和行为意向，判断不同受众为何改变评价。</p>
-          </article>
-          <article class="capability-card">
-            <span>02</span>
-            <h3>传播策略 / Communication Strategy</h3>
-            <p>提出“拯救型跨媒介反哺”：用高质量衍生内容重建情感认同和品牌入口。</p>
-          </article>
-          <article class="capability-card">
-            <span>03</span>
-            <h3>数据洞察 / Data Insight</h3>
-            <p>通过关键词归因匹配与卡方检验，验证讨论焦点从产品问题转向世界观与角色情感。</p>
-          </article>
-          <article class="capability-card">
-            <span>04</span>
-            <h3>内容判断 / Content Judgment</h3>
-            <p>总结生效条件：丰富世界观、独立创作质量、合适发布窗口、世界观一致且叙事独立。</p>
+          <article id="experience">
+            <h3>Experience</h3>
+            <h4>NIO Power · Power Operations Intern</h4>
+            <p>2026 · Regional social media operations, campaign support and operational data analysis.</p>
+            <h4>China Youth Network · Campus Media Reporter</h4>
+            <p>February 2026 · On-site esports reporting and interviews.</p>
+            <h4>International Mountain Tourism Alliance · General Affairs Intern</h4>
+            <p>July–August 2025 · English translation proofreading and preparation of international tourism materials.</p>
+            <h4>Guizhou Radio and Television Station · Traffic Music Department Intern</h4>
+            <p>January–February 2024 · Short-form video production and audience engagement tracking.</p>
           </article>
         </div>
       </section>
 
       <section class="contact section reveal" id="contact" aria-labelledby="contact-title">
-        <div>
-          <p class="section-kicker">Contact</p>
-          <h2 id="contact-title">联系 / Contact</h2>
-        </div>
+        <h2 id="contact-title">Contact</h2>
         <div class="contact-links">
-          <a class="copy-link" href="mailto:urxanxlin@gmail.com" data-copy="urxanxlin@gmail.com">urxanxlin@gmail.com</a>
-          <a class="copy-link" href="mailto:845314622@qq.com" data-copy="845314622@qq.com">845314622@qq.com</a>
+          <a class="copy-link" href="mailto:muyonglin27@163.com" data-copy="muyonglin27@163.com">muyonglin27@163.com</a>
           <a href="https://github.com/00myl00" target="_blank" rel="noreferrer">GitHub</a>
-          <a href="assets/documents/resume.pdf" target="_blank" rel="noreferrer">简历 PDF / Resume PDF</a>
+          <a href="assets/documents/resume.pdf" target="_blank" rel="noreferrer">CV (PDF)</a>
         </div>
       </section>
     </main>
 
     <footer class="site-footer">
-      <span>© 2026 Mu Yonglin</span>
-      <span>Audiovisual Communication Portfolio</span>
+      <span>© 2026 Yonglin Mu</span>
+      <span>Film &amp; Digital Media Portfolio</span>
     </footer>
 
     <div class="lightbox" aria-hidden="true" role="dialog" aria-label="Image preview">
@@ -1419,3 +1409,5 @@ renderGallery();
     </script>
   </body>
 </html>
+
+
